@@ -1,0 +1,9 @@
+// -----------------------------------------------------------------------------
+//  Ambient.Impact - Media - Media Play Overlay component
+// -----------------------------------------------------------------------------
+
+@import '../../../ambientimpact_core/stylesheets/_common.scss';
+
+.field--type-video-embed-field {
+  @include media-play-overlay;
+}
