@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * hook_theme() event subscriber class to define 'media_play_overlay' element.
  */
-class HookThemeMediaPlayOverlayEventSubscriber
+class ThemeMediaPlayOverlayEventSubscriber
 implements EventSubscriberInterface {
   /**
    * The Drupal module handler service.
