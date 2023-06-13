@@ -13,6 +13,9 @@
   "require": {
     "cweagans/composer-patches": "^1.7.0",
     "drupal/core-recommended": "^9.5.3",
+    "drupal/ambientimpact_core": "1.x-dev@dev",
+    "drupal/ambientimpact_icon": "1.x-dev@dev",
+    "drupal/ambientimpact_ux": "1.x-dev@dev",
     "drupal/hook_event_dispatcher": "^2.0 || ^3.0",
     "drupal/image_field_caption": "^1.1",
     "guzzlehttp/guzzle": "^6.5.8 || ^7.4.5"
