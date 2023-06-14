@@ -177,3 +177,17 @@ The following patches are supplied (see [Patching](#patching) above):
 * [Image Field Caption module](https://www.drupal.org/project/image_field_caption):
 
   * [Caption required incorrectly based on alt field required [#3181263]](https://www.drupal.org/project/image_field_caption/issues/3181263#comment-13895775)
+
+----
+
+# Major breaking changes
+
+The following major version bumps indicate breaking changes:
+
+* 1.x:
+
+  * Has been [`git subtree split`](https://shantanoo-desai.github.io/posts/technology/git_subtree/) from [`Ambient-Impact/drupal-modules`](https://github.com/Ambient-Impact/drupal-modules/tree/8.x) into a standalone package; version has been reset to 1.x.
+
+  * Requires Drupal 9.5.3 or [Drupal 10](https://www.drupal.org/project/drupal/releases/10.0.0).
+
+  * Increases minimum version of [Hook Event Dispatcher](https://www.drupal.org/project/hook_event_dispatcher) to 3.1, removes deprecated code, and adds support for 4.0 which supports Drupal 10.

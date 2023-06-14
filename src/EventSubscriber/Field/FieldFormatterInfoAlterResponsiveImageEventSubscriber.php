@@ -2,8 +2,8 @@
 
 namespace Drupal\ambientimpact_media\EventSubscriber\Field;
 
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\field_event_dispatcher\Event\Field\FieldFormatterInfoAlterEvent;
+use Drupal\field_event_dispatcher\FieldHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -16,7 +16,7 @@ class FieldFormatterInfoAlterResponsiveImageEventSubscriber implements EventSubs
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::FIELD_FORMATTER_INFO_ALTER =>
+      FieldHookEvents::FIELD_FORMATTER_INFO_ALTER =>
         'fieldFormatterInfoAlter',
     ];
   }

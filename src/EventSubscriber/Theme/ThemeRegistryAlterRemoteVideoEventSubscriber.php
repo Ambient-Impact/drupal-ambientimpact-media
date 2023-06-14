@@ -2,8 +2,8 @@
 
 namespace Drupal\ambientimpact_media\EventSubscriber\Theme;
 
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\core_event_dispatcher\Event\Theme\ThemeRegistryAlterEvent;
+use Drupal\core_event_dispatcher\ThemeHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -16,7 +16,7 @@ EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::THEME_REGISTRY_ALTER =>
+      ThemeHookEvents::THEME_REGISTRY_ALTER =>
         'themeRegistryAlter',
     ];
   }

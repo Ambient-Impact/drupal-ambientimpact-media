@@ -4,7 +4,7 @@ namespace Drupal\ambientimpact_media\EventSubscriber\Entity;
 
 use Drupal\file\Entity\File;
 use Drupal\Core\Image\ImageFactory;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -36,7 +36,7 @@ class MediaEntityPresaveEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
     ];
   }
 

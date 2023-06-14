@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\ambientimpact_media\EventSubscriber\Media;
 
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\media_event_dispatcher\Event\Media\OEmbedResourceUrlAlterEvent;
+use Drupal\media_event_dispatcher\MediaHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -18,7 +18,7 @@ class OEmbedResourceURLAlterVimeoThumbnailEventSubscriber implements EventSubscr
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::MEDIA_OEMBED_RESOURCE_DATA_ALTER =>
+      MediaHookEvents::MEDIA_OEMBED_RESOURCE_DATA_ALTER =>
         'oEmbedResourceURLAlter',
     ];
   }

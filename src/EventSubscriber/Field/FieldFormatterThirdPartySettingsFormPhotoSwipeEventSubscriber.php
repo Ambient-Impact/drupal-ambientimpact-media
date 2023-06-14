@@ -5,8 +5,8 @@ namespace Drupal\ambientimpact_media\EventSubscriber\Field;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\field_event_dispatcher\Event\Field\FieldFormatterThirdPartySettingsFormEvent;
+use Drupal\field_event_dispatcher\FieldHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use function in_array;
 
@@ -56,7 +56,7 @@ implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::FIELD_FORMATTER_THIRD_PARTY_SETTINGS_FORM =>
+      FieldHookEvents::FIELD_FORMATTER_THIRD_PARTY_SETTINGS_FORM =>
         'fieldFormatterThirdPartySettingsForm',
     ];
   }

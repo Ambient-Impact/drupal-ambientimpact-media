@@ -5,7 +5,7 @@ namespace Drupal\ambientimpact_media\EventSubscriber\Field;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\field_event_dispatcher\Event\Field\FieldFormatterSettingsSummaryAlterEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\field_event_dispatcher\FieldHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -39,7 +39,7 @@ class FieldFormatterSettingsSummaryAlterPhotoSwipeEventSubscriber implements Eve
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::FIELD_FORMATTER_SETTINGS_SUMMARY_ALTER =>
+      FieldHookEvents::FIELD_FORMATTER_SETTINGS_SUMMARY_ALTER =>
         'fieldFormatterSettingsSummaryAlter',
     ];
   }
