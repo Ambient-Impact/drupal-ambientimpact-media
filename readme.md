@@ -194,7 +194,7 @@ The following major version bumps indicate breaking changes:
 
 * 2.x:
 
-  * Requires [Drupal 10.0](https://www.drupal.org/project/drupal/releases/10.0.0).
+  * Requires [Drupal 10.0](https://www.drupal.org/project/drupal/releases/10.0.0); does not support Drupal 10.1.
 
   * Requires [Hook Event Dispatcher](https://www.drupal.org/project/hook_event_dispatcher) 4.0 which supports Drupal 10.
 
