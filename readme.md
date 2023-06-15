@@ -9,7 +9,7 @@ work-in-progress. Stable releases may be provided at a later date.
 
 # Requirements
 
-* [Drupal 10.0](https://www.drupal.org/download)
+* [Drupal 10](https://www.drupal.org/download)
 
 * [Composer](https://getcomposer.org/)
 
@@ -200,4 +200,4 @@ The following major version bumps indicate breaking changes:
 
   * Increases minimum version of `guzzlehttp/guzzle` to 7.4.5 as older versions aren't supported by Drupal 10.
 
-  * Requires [`drupal/ambientimpact_core` 2.x](https://github.com/Ambient-Impact/drupal-ambientimpact-core/tree/2.x) 2.x for Drupal 10 support.
+  * Requires [`drupal/ambientimpact_core` 2.x](https://github.com/Ambient-Impact/drupal-ambientimpact-core/tree/2.x) for Drupal 10 support.
