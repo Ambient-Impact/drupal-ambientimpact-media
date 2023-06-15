@@ -13,7 +13,7 @@
   "require": {
     "drupal/core": "^10.0",
     "cweagans/composer-patches": "^1.7.0",
-    "drupal/ambientimpact_core": "1.x-dev@dev",
+    "drupal/ambientimpact_core": "2.x-dev@dev",
     "drupal/ambientimpact_icon": "1.x-dev@dev",
     "drupal/ambientimpact_ux": "1.x-dev@dev",
     "drupal/hook_event_dispatcher": "^4.0",
