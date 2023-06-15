@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\image\Plugin\Field\FieldFormatter\ImageFormatter as CoreImageFormatter;
@@ -68,6 +69,9 @@ class ImageFormatter extends CoreImageFormatter {
    * @param \Drupal\Core\Entity\EntityStorageInterface $imageStyleStorage
    *   The image style storage.
    *
+   * @param \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator
+   *   The Drupal file URL generator.
+   *
    * @param \Drupal\ambientimpact_core\ComponentPluginManagerInterface $componentManager
    *   The Ambient.Impact Component manager service.
    *
@@ -84,12 +88,14 @@ class ImageFormatter extends CoreImageFormatter {
     array $thirdPartySettings,
     AccountInterface $currentUser,
     EntityStorageInterface $imageStyleStorage,
+    FileUrlGeneratorInterface $fileUrlGenerator,
     ComponentPluginManagerInterface $componentManager,
     UrlResolverInterface $mediaoEmbedURLResolver
   ) {
     parent::__construct(
       $pluginID, $pluginDefinition, $fieldDefinition, $settings, $label,
-      $viewMode, $thirdPartySettings, $currentUser, $imageStyleStorage
+      $viewMode, $thirdPartySettings, $currentUser, $imageStyleStorage,
+      $fileUrlGenerator
     );
 
     $this->componentManager       = $componentManager;
@@ -123,6 +129,7 @@ class ImageFormatter extends CoreImageFormatter {
       $configuration['third_party_settings'],
       $container->get('current_user'),
       $container->get('entity_type.manager')->getStorage('image_style'),
+      $container->get('file_url_generator'),
       $container->get('plugin.manager.ambientimpact_component'),
       $container->get('media.oembed.url_resolver')
     );

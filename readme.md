@@ -90,7 +90,7 @@ planned for the 2.x branch of the plug-in.
 ### Installing
 
 Once you've completed all of the above, run `composer require
-"drupal/ambientimpact_media:2.x-dev@dev"` in the root of your project to have
+"drupal/ambientimpact_media:3.x-dev@dev"` in the root of your project to have
 Composer install this and its required dependencies for you.
 
 ## Front-end assets
@@ -114,7 +114,7 @@ Once those are defined, add the following to the `"dependencies"` section of
 your top-level `package.json`:
 
 ```json
-"drupal-ambientimpact-media": "workspace:^2"
+"drupal-ambientimpact-media": "workspace:^3"
 ```
 
 Then run `yarn install` and let Yarn do the rest.
@@ -170,10 +170,6 @@ The following patches are supplied (see [Patching](#patching) above):
 
   * [Add a hook to modify oEmbed resource data [#3042423]](https://www.drupal.org/project/drupal/issues/3042423#comment-15098326) (requires Drupal core 10.0)
 
-  * [Order image mappings by breakpoint ID and numeric multiplier [#3267870]](https://www.drupal.org/project/drupal/issues/3267870) (required for subsequent patch)
-
-  * [Apply width and height attributes to responsive image tag [#3192234]](https://www.drupal.org/project/drupal/issues/3192234#comment-14510278)
-
 * [Image Field Caption module](https://www.drupal.org/project/image_field_caption):
 
   * [Caption required incorrectly based on alt field required [#3181263]](https://www.drupal.org/project/image_field_caption/issues/3181263#comment-13895775)
@@ -201,3 +197,13 @@ The following major version bumps indicate breaking changes:
   * Increases minimum version of `guzzlehttp/guzzle` to 7.4.5 as older versions aren't supported by Drupal 10.
 
   * Requires [`drupal/ambientimpact_core` 2.x](https://github.com/Ambient-Impact/drupal-ambientimpact-core/tree/2.x) for Drupal 10 support.
+
+* 3.x:
+
+  * Requires Drupal 10.1 due to formatter changes.
+
+  * Removes the following patches which are now in 10.1:
+
+    * [Order image mappings by breakpoint ID and numeric multiplier [#3267870]](https://www.drupal.org/project/drupal/issues/3267870)
+
+    * [Apply width and height attributes to responsive image tag [#3192234]](https://www.drupal.org/project/drupal/issues/3192234#comment-14510278)

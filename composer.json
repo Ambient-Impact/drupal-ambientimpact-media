@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "drupal/core": "~10.0.0",
+    "drupal/core": "^10.1",
     "cweagans/composer-patches": "^1.7.0",
     "drupal/ambientimpact_core": "2.x-dev@dev",
     "drupal/ambientimpact_icon": "1.x-dev@dev",
