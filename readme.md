@@ -9,7 +9,7 @@ work-in-progress. Stable releases may be provided at a later date.
 
 # Requirements
 
-* [Drupal 9.5](https://www.drupal.org/download) ([Drupal 8 is end-of-life](https://www.drupal.org/psa-2021-11-30))
+* [Drupal 10.0](https://www.drupal.org/download) ([Drupal 8 is end-of-life](https://www.drupal.org/psa-2021-11-30))
 
 * [Composer](https://getcomposer.org/)
 
@@ -90,7 +90,7 @@ planned for the 2.x branch of the plug-in.
 ### Installing
 
 Once you've completed all of the above, run `composer require
-"drupal/ambientimpact_media:1.x-dev@dev"` in the root of your project to have
+"drupal/ambientimpact_media:2.x-dev@dev"` in the root of your project to have
 Composer install this and its required dependencies for you.
 
 ## Front-end assets
@@ -114,7 +114,7 @@ Once those are defined, add the following to the `"dependencies"` section of
 your top-level `package.json`:
 
 ```json
-"drupal-ambientimpact-media": "workspace:^1"
+"drupal-ambientimpact-media": "workspace:^2"
 ```
 
 Then run `yarn install` and let Yarn do the rest.
@@ -168,7 +168,7 @@ The following patches are supplied (see [Patching](#patching) above):
 
 * Drupal core:
 
-  * [Add a hook to modify oEmbed resource data [#3042423]](https://www.drupal.org/project/drupal/issues/3042423#comment-14902126) (requires Drupal core 9.5.3 or newer)
+  * [Add a hook to modify oEmbed resource data [#3042423]](https://www.drupal.org/project/drupal/issues/3042423#comment-15098326) (requires Drupal core 10.0)
 
   * [Order image mappings by breakpoint ID and numeric multiplier [#3267870]](https://www.drupal.org/project/drupal/issues/3267870) (required for subsequent patch)
 
@@ -188,6 +188,14 @@ The following major version bumps indicate breaking changes:
 
   * Has been [`git subtree split`](https://shantanoo-desai.github.io/posts/technology/git_subtree/) from [`Ambient-Impact/drupal-modules`](https://github.com/Ambient-Impact/drupal-modules/tree/8.x) into a standalone package; version has been reset to 1.x.
 
-  * Requires Drupal 9.5.3 or [Drupal 10](https://www.drupal.org/project/drupal/releases/10.0.0).
+  * Requires Drupal 9.5.
 
   * Increases minimum version of [Hook Event Dispatcher](https://www.drupal.org/project/hook_event_dispatcher) to 3.1, removes deprecated code, and adds support for 4.0 which supports Drupal 10.
+
+* 2.x:
+
+  * Requires [Drupal 10.0](https://www.drupal.org/project/drupal/releases/10.0.0).
+
+  * Requires [Hook Event Dispatcher](https://www.drupal.org/project/hook_event_dispatcher) 4.0 which supports Drupal 10.
+
+  * Increases minimum version of `guzzlehttp/guzzle` to 7.4.5 as older versions aren't supported by Drupal 10.
