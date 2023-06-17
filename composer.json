@@ -3,6 +3,10 @@
   "description": "Ambient.Impact - Media",
   "type": "drupal-custom-module",
   "license": "GPL-2.0-or-later",
+  "support": {
+    "docs": "https://github.com/Ambient-Impact/drupal-ambientimpact-media",
+    "source": "https://github.com/Ambient-Impact/drupal-ambientimpact-media"
+  },
   "authors": [
     {
       "name": "Ambient.Impact",
