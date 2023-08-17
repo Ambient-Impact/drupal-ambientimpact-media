@@ -3,6 +3,7 @@ type: module
 description: Media (images, video, etc.) and related code.
 package: Ambient.Impact
 core_version_requirement: ^10.1
+php: 8.1
 
 dependencies:
   - drupal:file
