@@ -2,7 +2,7 @@ name: Ambient.Impact - Media
 type: module
 description: Media (images, video, etc.) and related code.
 package: Ambient.Impact
-core_version_requirement: ^10.0
+core_version_requirement: ^10.1
 
 dependencies:
   - drupal:file
