@@ -6,15 +6,14 @@ use Drupal\ambientimpact_core\ComponentBase;
 use Drupal\Component\Serialization\SerializationInterface;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\file\FileInterface;
-use Drupal\file\FileStorageInterface;
 use Drupal\image\ImageStyleInterface;
-use Drupal\image\ImageStyleStorageInterface;
 use Drupal\image\Plugin\Field\FieldType\ImageItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -30,38 +29,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Image extends ComponentBase {
 
   /**
-   * The Drupal file entity storage.
-   *
-   * @var \Drupal\file\FileStorageInterface
-   */
-  protected $fileStorage;
-
-  /**
-   * The Drupal image style configuration entity storage.
-   *
-   * @var \Drupal\image\ImageStyleStorageInterface
-   */
-  protected $imageStyleStorage;
-
-  /**
    * {@inheritdoc}
    *
-   * @param \Drupal\file\FileStorageInterface $fileStorage
-   *   The Drupal file entity storage.
-   *
-   * @param \Drupal\image\ImageStyleStorageInterface $imageStyleStorage
-   *   The Drupal image style configuration entity storage.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The Drupal entity type manager.
    */
   public function __construct(
     array $configuration, string $pluginId, array $pluginDefinition,
-    ModuleHandlerInterface      $moduleHandler,
-    LanguageManagerInterface    $languageManager,
-    RendererInterface           $renderer,
-    SerializationInterface      $yamlSerialization,
-    TranslationInterface        $stringTranslation,
-    CacheBackendInterface       $htmlCacheService,
-    FileStorageInterface        $fileStorage,
-    ImageStyleStorageInterface  $imageStyleStorage
+    ModuleHandlerInterface    $moduleHandler,
+    LanguageManagerInterface  $languageManager,
+    RendererInterface         $renderer,
+    SerializationInterface    $yamlSerialization,
+    TranslationInterface      $stringTranslation,
+    CacheBackendInterface     $htmlCacheService,
+    protected readonly EntityTypeManagerInterface $entityTypeManager,
   ) {
 
     parent::__construct(
@@ -71,11 +52,8 @@ class Image extends ComponentBase {
       $renderer,
       $yamlSerialization,
       $stringTranslation,
-      $htmlCacheService
+      $htmlCacheService,
     );
-
-    $this->fileStorage        = $fileStorage;
-    $this->imageStyleStorage  = $imageStyleStorage;
 
   }
 
@@ -94,8 +72,7 @@ class Image extends ComponentBase {
       $container->get('serialization.yaml'),
       $container->get('string_translation'),
       $container->get('cache.ambientimpact_component_html'),
-      $container->get('entity_type.manager')->getStorage('file'),
-      $container->get('entity_type.manager')->getStorage('image_style')
+      $container->get('entity_type.manager'),
     );
   }
 
@@ -109,7 +86,9 @@ class Image extends ComponentBase {
    *   A file entity or null if it could not be loaded.
    */
   public function getImageItemFile(ImageItem $imageItem): ?FileInterface {
-    return $this->fileStorage->load($imageItem->target_id);
+    return $this->entityTypeManager->getStorage('file')->load(
+      $imageItem->target_id,
+    );
   }
 
   /**
@@ -123,15 +102,18 @@ class Image extends ComponentBase {
    */
   public function getImageStyle(string $imageStyleName): ?ImageStyleInterface {
 
+    /** @var \Drupal\image\ImageStyleStorageInterface The Drupal image style configuration entity storage. */
+    $imageStyleStorage = $this->entityTypeManager->getStorage('image_style');
+
     /** @var \Drupal\image\ImageStyleInterface|null */
-    $imageStyle = $this->imageStyleStorage->load($imageStyleName);
+    $imageStyle = $imageStyleStorage->load($imageStyleName);
 
     if (\is_object($imageStyle)) {
       return $imageStyle;
     }
 
     /** @var string|null */
-    $replacementImageStyleName = $this->imageStyleStorage->getReplacementId(
+    $replacementImageStyleName = $imageStyleStorage->getReplacementId(
       $imageStyleName
     );
 
@@ -139,7 +121,7 @@ class Image extends ComponentBase {
       return null;
     }
 
-    return $this->imageStyleStorage->load($replacementImageStyleName);
+    return $imageStyleStorage->load($replacementImageStyleName);
 
   }
 

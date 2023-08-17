@@ -4,7 +4,6 @@ namespace Drupal\ambientimpact_media\EventSubscriber\Field;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\field_event_dispatcher\Event\Field\FieldFormatterThirdPartySettingsFormEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,37 +18,18 @@ implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
-   * The Drupal image style configuration entity storage.
-   *
-   * @var \Drupal\image\ImageStyleStorageInterface
-   */
-  protected $imageStyleStorage;
-
-  /**
-   * The Drupal string translation service.
-   *
-   * @var \Drupal\Core\StringTranslation\TranslationInterface
-   */
-  protected $stringTranslation;
-
-  /**
    * Event subscriber constructor; saves dependencies.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The Drupal entity type plug-in manager.
+   *   The Drupal entity type manager.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation
    *   The Drupal string translation service.
    */
   public function __construct(
-    EntityTypeManagerInterface  $entityTypeManager,
-    TranslationInterface        $stringTranslation
-  ) {
-
-    $this->imageStyleStorage = $entityTypeManager->getStorage('image_style');
-    $this->stringTranslation = $stringTranslation;
-
-  }
+    protected readonly EntityTypeManagerInterface $entityTypeManager,
+    protected $stringTranslation,
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -122,7 +102,9 @@ implements EventSubscriberInterface {
     ];
 
     /** @var \Drupal\image\ImageStyleInterface[] */
-    $imageStyles = $this->imageStyleStorage->loadMultiple();
+    $imageStyles = $this->entityTypeManager->getStorage(
+      'image_style',
+    )->loadMultiple();
 
     /** @var string[] */
     $imageStyleOptions = [];
