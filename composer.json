@@ -28,10 +28,10 @@
   "extra": {
     "patches": {
       "drupal/core": {
-        "Add a hook to modify oEmbed resource data (core 10.2.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/4.x/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data.patch"
+        "Add a hook to modify oEmbed resource data (core 10.2.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/c4b5b93573d96017d342c0f29e6aabe34a0396ef/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data.patch"
       },
       "drupal/image_field_caption": {
-        "Caption required incorrectly based on alt field required [#3181263]: https://www.drupal.org/project/image_field_caption/issues/3181263#comment-13895775": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/2.x/patches/drupal/image_field_caption/image_field_caption_caption_required_alt_required_3181263-1.patch"
+        "Caption required incorrectly based on alt field required [#3181263]: https://www.drupal.org/project/image_field_caption/issues/3181263#comment-13895775": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/c4b5b93573d96017d342c0f29e6aabe34a0396ef/patches/drupal/image_field_caption/image_field_caption_caption_required_alt_required_3181263-1.patch"
       }
     }
   }
