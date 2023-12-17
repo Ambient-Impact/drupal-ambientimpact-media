@@ -1,8 +1,8 @@
 diff --git a/core/misc/cspell/dictionary.txt b/core/misc/cspell/dictionary.txt
-index bfb2d6424d..cff6e32a0b 100644
+index 8fcbd4fe32..2cf1fd68f9 100644
 --- a/core/misc/cspell/dictionary.txt
 +++ b/core/misc/cspell/dictionary.txt
-@@ -511,6 +511,7 @@ hola
+@@ -377,6 +377,7 @@ hoglet
  hookname
  hosters
  hostnames
@@ -10,8 +10,8 @@ index bfb2d6424d..cff6e32a0b 100644
  hrefs
  htkey
  htmlcorrector
-@@ -663,6 +664,7 @@ maxage
- maxdepth
+@@ -475,6 +476,7 @@ mathematica
+ maxage
  maximumred
  maxlifetime
 +maxresdefault
@@ -45,20 +45,20 @@ index 93244f58a8..fc3db0484a 100644
   * Alters an oEmbed resource URL before it is fetched.
   *
 diff --git a/core/modules/media/media.services.yml b/core/modules/media/media.services.yml
-index 252a51dd08..28cfcff86d 100644
+index 26c688b55d..1cb886258c 100644
 --- a/core/modules/media/media.services.yml
 +++ b/core/modules/media/media.services.yml
-@@ -10,7 +10,7 @@ services:
-     arguments: ['@http_client', '@config.factory', '@datetime.time', '@keyvalue', '@logger.factory']
+@@ -12,7 +12,7 @@ services:
+   Drupal\media\OEmbed\ProviderRepositoryInterface: '@media.oembed.provider_repository'
    media.oembed.resource_fetcher:
      class: Drupal\media\OEmbed\ResourceFetcher
 -    arguments: ['@http_client', '@media.oembed.provider_repository', '@cache.default']
 +    arguments: ['@http_client', '@media.oembed.provider_repository', '@cache.default', '@module_handler']
+   Drupal\media\OEmbed\ResourceFetcherInterface: '@media.oembed.resource_fetcher'
    media.oembed.iframe_url_helper:
      class: Drupal\media\IFrameUrlHelper
-     arguments: ['@router.request_context', '@private_key']
 diff --git a/core/modules/media/src/OEmbed/ResourceFetcher.php b/core/modules/media/src/OEmbed/ResourceFetcher.php
-index 62b39499fe..026e9f5d8b 100644
+index 789fb82aeb..aabcc3f82a 100644
 --- a/core/modules/media/src/OEmbed/ResourceFetcher.php
 +++ b/core/modules/media/src/OEmbed/ResourceFetcher.php
 @@ -4,6 +4,7 @@
@@ -69,7 +69,7 @@ index 62b39499fe..026e9f5d8b 100644
  use GuzzleHttp\ClientInterface;
  use GuzzleHttp\Exception\TransferException;
  use GuzzleHttp\RequestOptions;
-@@ -34,6 +35,13 @@ class ResourceFetcher implements ResourceFetcherInterface {
+@@ -36,6 +37,13 @@ class ResourceFetcher implements ResourceFetcherInterface {
     */
    protected $cacheBackend;
  
@@ -83,7 +83,7 @@ index 62b39499fe..026e9f5d8b 100644
    /**
     * Constructs a ResourceFetcher object.
     *
-@@ -43,11 +51,18 @@ class ResourceFetcher implements ResourceFetcherInterface {
+@@ -45,11 +53,18 @@ class ResourceFetcher implements ResourceFetcherInterface {
     *   The oEmbed provider repository service.
     * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
     *   The cache backend.
@@ -103,7 +103,7 @@ index 62b39499fe..026e9f5d8b 100644
    }
  
    /**
-@@ -88,6 +103,8 @@ public function fetchResource($url) {
+@@ -90,6 +105,8 @@ public function fetchResource($url) {
        throw new ResourceException('The oEmbed resource could not be decoded.', $url);
      }
  
@@ -131,7 +131,7 @@ index 7ab7f12496..2c06d78b4e 100644
 +  }
 +}
 diff --git a/core/modules/media/tests/src/Functional/ResourceFetcherTest.php b/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
-index e1e20ff8d9..ea08b6f081 100644
+index b83f7b9fa8..c8d61577db 100644
 --- a/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
 +++ b/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
 @@ -34,6 +34,7 @@ protected function setUp(): void {

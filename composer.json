@@ -16,7 +16,7 @@
   ],
   "require": {
     "php": "^8.1",
-    "drupal/core": ">=10.1 <10.2",
+    "drupal/core": ">=10.2 <10.3",
     "cweagans/composer-patches": "^1.7.0",
     "drupal/ambientimpact_core": "2.x-dev@dev",
     "drupal/ambientimpact_icon": "1.x-dev@dev",
@@ -28,7 +28,7 @@
   "extra": {
     "patches": {
       "drupal/core": {
-        "Add a hook to modify oEmbed resource data (core 10.0.0 and up) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423#comment-15098326": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/2.x/patches/drupal/core/3042423-88.patch"
+        "Add a hook to modify oEmbed resource data (core 10.2.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/4.x/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data.patch"
       },
       "drupal/image_field_caption": {
         "Caption required incorrectly based on alt field required [#3181263]: https://www.drupal.org/project/image_field_caption/issues/3181263#comment-13895775": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/2.x/patches/drupal/image_field_caption/image_field_caption_caption_required_alt_required_3181263-1.patch"

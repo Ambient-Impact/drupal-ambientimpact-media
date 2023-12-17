@@ -209,3 +209,7 @@ The following major version bumps indicate breaking changes:
     * [Order image mappings by breakpoint ID and numeric multiplier [#3267870]](https://www.drupal.org/project/drupal/issues/3267870)
 
     * [Apply width and height attributes to responsive image tag [#3192234]](https://www.drupal.org/project/drupal/issues/3192234#comment-14510278)
+
+* 4.x:
+
+  * Requires Drupal 10.2 due to [oEmbed hook patch](https://www.drupal.org/project/drupal/issues/3042423); explicitly does not support Drupal 10.3 to prevent future breakage due to patch.
