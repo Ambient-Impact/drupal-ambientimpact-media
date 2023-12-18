@@ -5,12 +5,42 @@ declare(strict_types=1);
 namespace Drupal\ambientimpact_media\Hooks;
 
 use Drupal\hux\Attribute\Alter;
+use Drupal\media\OEmbed\Provider;
 use GuzzleHttp\Client as GuzzleClient;
 
 /**
  * Media hook implementations.
  */
 class Media {
+
+  #[Alter('oembed_resource_url')]
+  /**
+   * Implements \hook_oembed_resource_url_alter().
+   *
+   * This informs Vimeo to return the thumbnail at the maximum size they
+   * support, which is currently 1280 pixels wide.
+   *
+   * @param array $parsedUrl
+   *   A parsed URL, as returned by
+   *   \Drupal\Component\Utility\UrlHelper::parse().
+   *
+   * @param \Drupal\media\OEmbed\Provider $provider
+   *   The oEmbed provider for the resource.
+   */
+  public function oembedUrlAlterVimeo(
+    array &$parsedUrl, Provider $provider,
+  ): void {
+
+    if (
+      \strpos($parsedUrl['path'], 'https://vimeo.com/') !== 0 ||
+      isset($parsedUrl['query']['width'])
+    ) {
+      return;
+    }
+
+    $parsedUrl['query']['width'] = '1280';
+
+  }
 
   #[Alter('oembed_resource_data')]
   /**

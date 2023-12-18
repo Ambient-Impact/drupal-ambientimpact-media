@@ -70,13 +70,6 @@ services:
     tags:
       - { name: 'event_subscriber' }
 
-  # Vimeo thumbnail oEmbed hook_oembed_resource_url_alter() event subscriber.
-  ambientimpact_media.vimeo_thumbnail_oembed_resource_url_alter_event_subscriber:
-    class: \Drupal\ambientimpact_media\EventSubscriber\Media\OEmbedResourceURLAlterVimeoThumbnailEventSubscriber
-    arguments: []
-    tags:
-      - { name: 'event_subscriber' }
-
   # PhotoSwipe template_preprocess_field() event subscriber.
   ambientimpact_media.preprocess_field_photoswipe_event_subscriber:
     class: \Drupal\ambientimpact_media\EventSubscriber\Preprocess\PreprocessFieldPhotoSwipeEventSubscriber
