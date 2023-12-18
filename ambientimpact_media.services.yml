@@ -1,10 +1,4 @@
 services:
-  # Media entity hook_entity_presave() event subscriber.
-  ambientimpact_media.media_entity_presave_event_subscriber:
-    class: \Drupal\ambientimpact_media\EventSubscriber\Entity\MediaEntityPresaveEventSubscriber
-    arguments: ['@image.factory']
-    tags:
-      - { name: 'event_subscriber' }
 
   # Image formatter hook_field_formatter_info_alter() event subscriber.
   ambientimpact_media.image_field_formatter_info_alter_event_subscriber:
