@@ -92,7 +92,7 @@ planned for the 2.x branch of the plug-in.
 ### Installing
 
 Once you've completed all of the above, run `composer require
-"drupal/ambientimpact_media:3.x-dev@dev"` in the root of your project to have
+"drupal/ambientimpact_media:^3.0@dev"` in the root of your project to have
 Composer install this and its required dependencies for you.
 
 ## Front-end assets
