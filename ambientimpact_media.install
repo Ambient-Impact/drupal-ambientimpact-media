@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Rebuild the container and ensure Hux is installed if it isn't already.
+ */
+function ambientimpact_media_update_10201(): void {
+
+  // Force a container rebuild to ensure previous event subscribers are removed
+  // and Hux hook classes are discovered.
+  \Drupal::service('kernel')->invalidateContainer();
+
+  \Drupal::service('module_installer')->install(['hux']);
+
+}

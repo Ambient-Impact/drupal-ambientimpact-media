@@ -159,26 +159,3 @@ function ambientimpact_media_preprocess_image_style(&$variables) {
     }
   }
 }
-
-/**
- * Implements hook_oembed_resource_data_alter().
- *
- * Provides a Hook Event Dispatcher event for this hook.
- *
- * @param array &$data
- *   The oEmbed data, parsed into an array.
- *
- * @param string $url
- *   The oEmbed URL that $data was retrieved from.
- *
- * @see https://www.drupal.org/project/drupal/issues/3042423
- *   This hook won't be invoked unless this Drupal core patch is applied.
- *
- * @see \Drupal\ambientimpact_media\Event\Media\OEmbedResourceDataAlterEvent
- */
-function ambientimpact_media_oembed_resource_data_alter(array &$data, $url) {
-  /* @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = \Drupal::service('hook_event_dispatcher.manager');
-
-  $manager->register(new OEmbedResourceDataAlterEvent($data, $url));
-}

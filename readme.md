@@ -213,3 +213,11 @@ The following major version bumps indicate breaking changes:
 * 4.x:
 
   * Requires Drupal 10.2 due to [oEmbed hook patch](https://www.drupal.org/project/drupal/issues/3042423); explicitly does not support Drupal 10.3 to prevent future breakage due to patch.
+
+  * The oEmbed resource data alter event has been removed; use [Hux](https://www.drupal.org/project/hux) to implement the hook with dependency injection supported; removed:
+
+    * `\Drupal\ambientimpact_media\AmbientImpactMediaEventInterface`
+
+    * `\Drupal\ambientimpact_media\Event\Media\OEmbedResourceDataAlterEvent`
+
+  * Existing oEmbed alter event subscribers have been converted to Hux hook classes and renamed to be more in line with PHP, Drupal, and Symfony naming conventions.
