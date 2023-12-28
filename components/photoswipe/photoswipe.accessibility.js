@@ -42,9 +42,12 @@ function(aiPhotoSwipeAccessibility, $) {
     // they left off. This can happen with keyboard navigation focusing the
     // document or viewport, regardless of our disabling everything outside
     // of the viewer.
-    focusDisabledHandle = ally.maintain.disabled({
+    $gallery.prop('aiPhotoSwipeAccessibilityDisabledHandle', ally.maintain.disabled({
       filter: focusDisabledFilter
-    });
+    }));
+    // focusDisabledHandle = ally.maintain.disabled({
+    //   filter: focusDisabledFilter
+    // });
 
     openedScrollTop = $(document).scrollTop();
 
@@ -64,12 +67,14 @@ function(aiPhotoSwipeAccessibility, $) {
     event, gallery, $gallery, gallerySettings
   ) {
     setTimeout(function() {
-    if (
-      'disengage' in focusDisabledHandle &&
-      typeof focusDisabledHandle.disengage === 'function'
-    ) {
-      focusDisabledHandle.disengage();
-    }
+    // if (
+    //   'disengage' in focusDisabledHandle &&
+    //   typeof focusDisabledHandle.disengage === 'function'
+    // ) {
+    //   focusDisabledHandle.disengage();
+    // }
+    $gallery.prop('aiPhotoSwipeAccessibilityDisabledHandle').disengage();
+    console.debug('OHAI');
 
     $(document).off('scroll.aiPhotoSwipeAccessibility', preventScroll);
 

@@ -552,6 +552,23 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
     return true;
   };
 
+  this.destroyAll = function() {
+
+    console.debug(galleryUIDCounter, $.extend({}, galleries));
+
+    for (let galleryUid in galleries) {
+
+      console.debug(galleryUid, galleries[galleryUid].$gallery);
+
+      galleries[galleryUid].$gallery.PhotoSwipeDestroy();
+
+    }
+
+    // Reset the counter.
+    galleryUIDCounter = 1;
+
+  };
+
   /**
    * PhotoSwipe jQuery plugin.
    *
