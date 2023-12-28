@@ -221,3 +221,15 @@ The following major version bumps indicate breaking changes:
     * `\Drupal\ambientimpact_media\Event\Media\OEmbedResourceDataAlterEvent`
 
   * Existing oEmbed alter event subscribers have been converted to Hux hook classes and renamed to be more in line with PHP, Drupal, and Symfony naming conventions.
+
+  * Migrate configuration and plug-ins have been removed as they haven't been tested in a long while and are unmaintained; if you need to migrate file entities from Drupal 7 to media entities in modern Drupal, these can still be found in the 3.x and earlier branches:
+
+    * `config/optional/migrate_plus.migration.d7_file_entity_vimeo.yml`
+
+    * `config/optional/migrate_plus.migration.d7_file_entity_youtube.yml`
+
+    * `\Drupal\ambientimpact_media\Plugin\migrate\process\Vimeo`
+
+    * `\Drupal\ambientimpact_media\Plugin\migrate\process\YouTube`
+
+    * `\Drupal\ambientimpact_media\Plugin\migrate\source\FileEntity`
