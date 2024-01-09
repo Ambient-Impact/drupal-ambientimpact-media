@@ -108,11 +108,30 @@ function(aiPhotoSwipeHash, $) {
     // gallery and a valid item in it.
     openOnHash(gallerySettings.uid);
 
+    /**
+     * hashchange event handler for this gallery UID.
+     *
+     * @param {jQuery.Event} event
+     *   The event object.
+     */
+    function eventHandler(event) {
+      openOnHash(gallerySettings.uid);
+    };
+
     // Attach a hashchange event to open this gallery if the user navigates
     // via the browser's back and forward functions.
-    $(window).on('hashchange.aiPhotoSwipeHash', function(event) {
-      openOnHash(gallerySettings.uid);
+    $(window).on('hashchange.aiPhotoSwipeHash', eventHandler);
+
+    // Remove the event handler when PhotoSwipe is detached. This is necessary
+    // to clean up in case behaviours are re-attached to avoid attempting to
+    // open a gallery that no longer exists due to a partial (not full) page
+    // update.
+    aiPhotoSwipe.getViewer().on('PhotoSwipeDestroy', function(
+      event, $gallery, gallerySettings,
+    ) {
+      $(window).off('hashchange.aiPhotoSwipeHash', eventHandler);
     });
+
   });
 
   AmbientImpact.on(['hashScroll'], function(aiHashScroll) {
