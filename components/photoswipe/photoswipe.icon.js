@@ -80,7 +80,7 @@ AmbientImpact.addComponent('photoswipe.icon', function(aiPhotoSwipeIcon, $) {
       .wrapTextWithIcon(icon.name, icon.settings);
   };
 
-  $(document).on('PhotoSwipeZoomIn.aiPhotoSwipeIcon', function(
+  aiPhotoSwipe.getViewer().on('PhotoSwipeZoomIn.aiPhotoSwipeIcon', function(
     event, gallery, $gallery, gallerySettings
   ) {
     // We just zoomed in, so change the button icon out to zoom out.

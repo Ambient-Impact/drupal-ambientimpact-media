@@ -100,9 +100,10 @@ function(aiPhotoSwipeHash, $) {
     // }
   };
 
-  $(document).on('PhotoSwipeAttach.aiPhotoSwipeHash', function(
-    event, $gallery, gallerySettings
+  aiPhotoSwipe.getViewer().on('PhotoSwipeAttach.aiPhotoSwipeHash', function(
+    event, $gallery, gallerySettings,
   ) {
+
     // Open gallery immediately if a hash exists in the URL and matches this
     // gallery and a valid item in it.
     openOnHash(gallerySettings.uid);

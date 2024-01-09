@@ -12,7 +12,7 @@ AmbientImpact.addComponent(
 function(aiPhotoSwipePointer, $) {
   'use strict';
 
-  $(document).on('PhotoSwipeOpen.aiPhotoSwipePointer', function(
+  aiPhotoSwipe.getViewer().on('PhotoSwipeOpen.aiPhotoSwipePointer', function(
     event, gallery, $gallery, gallerySettings
   ) {
     // Lock the pointer focus state so we have the same focus state on

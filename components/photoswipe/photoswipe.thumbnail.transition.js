@@ -48,9 +48,9 @@ function(aiPhotoSwipeThumbnailTransition, $) {
       .removeClass(thumbnailHiddenClass);
   };
 
-  $(document).on('PhotoSwipeAttach.aiPhotoSwipeThumbnailTransition', function(
-    event, $gallery, gallerySettings
-  ) {
+  aiPhotoSwipe.getViewer().on(
+    'PhotoSwipeAttach.aiPhotoSwipeThumbnailTransition',
+  function(event, $gallery, gallerySettings) {
     // Add the base class on attach.
     $gallery
       .find(

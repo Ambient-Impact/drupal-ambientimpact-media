@@ -531,7 +531,7 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
     // Trigger the before open event, allowing any bound events to modify
     // the settings before the gallery is opened.
     var beforeOpenEvent = new $.Event('PhotoSwipeBeforeOpen');
-    $(document).trigger(beforeOpenEvent, [
+    $viewer.trigger(beforeOpenEvent, [
       gallery.PhotoSwipe,
       $gallery,
       gallerySettings
@@ -556,7 +556,7 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
 
     // Trigger the open event.
     var openEvent = new $.Event('PhotoSwipeOpen');
-    $(document).trigger(openEvent, [
+    $viewer.trigger(openEvent, [
       gallery.PhotoSwipe,
       $gallery,
       gallerySettings
@@ -608,7 +608,7 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
     // Trigger the before attach event, allowing any bound events to modify
     // settings before the gallery is initialized.
     var beforeAttachEvent = new $.Event('PhotoSwipeBeforeAttach');
-    $(document).trigger(beforeAttachEvent, [
+    $viewer.trigger(beforeAttachEvent, [
       $gallery,
       settings
     ]);
@@ -637,7 +637,7 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
 
     // Trigger the attach event.
     var attachEvent = new $.Event('PhotoSwipeAttach');
-    $(document).trigger(attachEvent, [
+    $viewer.trigger(attachEvent, [
       $gallery,
       gallerySettings
     ]);
@@ -663,7 +663,7 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
       galleryUID    = $gallery.data('PhotoSwipeGalleryUID'),
       gallerySettings = getGallerySettings(galleryUID);
 
-    $(document).trigger('PhotoSwipeBeforeDestroy', [
+    $viewer.trigger('PhotoSwipeBeforeDestroy', [
       $gallery,
       gallerySettings
     ]);
@@ -679,7 +679,7 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
 
     deleteGallery(galleryUID);
 
-    $(document).trigger('PhotoSwipeDestroy', [
+    $viewer.trigger('PhotoSwipeDestroy', [
       $gallery,
       gallerySettings
     ]);

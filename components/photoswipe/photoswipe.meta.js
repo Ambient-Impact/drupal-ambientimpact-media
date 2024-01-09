@@ -16,9 +16,9 @@ function(aiPhotoSwipeMeta, $) {
 
   // Temporarily replace the theme colour meta tag while PhotoSwipe is open,
   // and restore it on close.
-  $(document).on('PhotoSwipeInitialZoomIn.aiPhotoSwipeMeta', function(
-    event, gallery, $gallery, gallerySettings
-  ) {
+  aiPhotoSwipe.getViewer().on(
+    'PhotoSwipeInitialZoomIn.aiPhotoSwipeMeta',
+  function(event, gallery, $gallery, gallerySettings) {
     if (gallerySettings.metaThemeColour) {
       $themeColour
         .data(

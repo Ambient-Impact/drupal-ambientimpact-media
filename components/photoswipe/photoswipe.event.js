@@ -2,8 +2,8 @@
    Ambient.Impact - Media - PhotoSwipe event component
 ----------------------------------------------------------------------------- */
 
-// The following PhotoSwipe events are fired on the document as a convenience,
-// invoked from gallery.listen():
+// The following PhotoSwipe events are fired on the viewer element as a
+// convenience, invoked from gallery.listen():
 // * initialZoomIn    => PhotoSwipeInitialZoomIn
 // * initialZoomInEnd => PhotoSwipeInitialZoomInEnd
 // * initialZoomOut   => PhotoSwipeInitialZoomOut
@@ -14,7 +14,8 @@
 // See: http://photoswipe.com/documentation/api.html (Events heading)
 
 // This provides some additional events that the main PhotoSwipe component or
-// PhotoSwipe library itself do not provide. These are fired on the document:
+// PhotoSwipe library itself do not provide. These are fired on the viewer
+// element:
 // * PhotoSwipeFullscreenEnter
 // * PhotoSwipeFullscreenExit
 // * PhotoSwipeZoomIn
@@ -25,6 +26,13 @@ AmbientImpact.addComponent(
   'photoswipe.event',
 function(aiPhotoSwipeEvent, $) {
   'use strict';
+
+  /**
+   * The PhotoSwipe viewer element, wrapped in a jQuery collection.
+   *
+   * @type {jQuery}
+   */
+  const $viewer = aiPhotoSwipe.getViewer();
 
   var viewerClass   = $.PhotoSwipe.baseClass,
     transposeEvents = {
@@ -41,14 +49,14 @@ function(aiPhotoSwipeEvent, $) {
 
   // We bind to the before open event to ensure we can reliably catch the
   // initialZoomIn event.
-  $(document).on('PhotoSwipeBeforeOpen.aiPhotoSwipeEvent', function(
+  $viewer.on('PhotoSwipeBeforeOpen.aiPhotoSwipeEvent', function(
     event, gallery, $gallery, gallerySettings
   ) {
     // Fire events on the document when PhotoSwipe fires them on the
     // gallery.
     $.each(transposeEvents, function(PhotoSwipeEventName, docEventName) {
       gallery.listen(PhotoSwipeEventName, function() {
-        $(document).trigger(docEventName, [
+        $viewer.trigger(docEventName, [
           gallery,
           $gallery,
           gallerySettings
@@ -60,7 +68,7 @@ function(aiPhotoSwipeEvent, $) {
 
   // Don't do anything until the gallery has finished transitioning to the
   // open state, so as to not affect performance.
-  $(document).on('PhotoSwipeInitialZoomInEnd.aiPhotoSwipeEvent', function(
+  $viewer.on('PhotoSwipeInitialZoomInEnd.aiPhotoSwipeEvent', function(
     event, gallery, $gallery, gallerySettings
   ) {
     // Check that the PhotoSwipe UI offers the method to get the browser's
@@ -93,14 +101,14 @@ function(aiPhotoSwipeEvent, $) {
     $(document).on(api.eventK + '.aiPhotoSwipeEvent', function(event) {
       if (api.isFullscreen()) {
         // We've entered fullscreen.
-        $(document).trigger('PhotoSwipeFullscreenEnter', [
+        $gallery.trigger('PhotoSwipeFullscreenEnter', [
           gallery,
           $gallery,
           gallerySettings
         ]);
       } else {
         // We've exited fullscreen.
-        $(document).trigger('PhotoSwipeFullscreenExit', [
+        $gallery.trigger('PhotoSwipeFullscreenExit', [
           gallery,
           $gallery,
           gallerySettings
@@ -121,13 +129,12 @@ function(aiPhotoSwipeEvent, $) {
 
   // Don't do anything until the gallery has finished transitioning to the
   // open state, so as to not affect performance.
-  $(document).on('PhotoSwipeInitialZoomInEnd.aiPhotoSwipeEvent', function(
+  $viewer.on('PhotoSwipeInitialZoomInEnd.aiPhotoSwipeEvent', function(
     event, gallery, $gallery, gallerySettings
   ) {
     var zoomedIn    = false,
       zoomedInClass = viewerClass + '--zoomed-in',
-      observer,
-      $viewer     = $(gallery.template);
+      observer;
 
     observer = new MutationObserver(function(mutationsList) {
       for (var i = mutationsList.length - 1; i >= 0; i--) {
@@ -135,7 +142,7 @@ function(aiPhotoSwipeEvent, $) {
         if (!zoomedIn && $viewer.hasClass(zoomedInClass)) {
           zoomedIn = true;
 
-          $(document).trigger('PhotoSwipeZoomIn', [
+          $viewer.trigger('PhotoSwipeZoomIn', [
             gallery,
             $gallery,
             gallerySettings
@@ -148,7 +155,7 @@ function(aiPhotoSwipeEvent, $) {
         if (zoomedIn && !$viewer.hasClass(zoomedInClass)) {
           zoomedIn = false;
 
-          $(document).trigger('PhotoSwipeZoomOut', [
+          $viewer.trigger('PhotoSwipeZoomOut', [
             gallery,
             $gallery,
             gallerySettings
