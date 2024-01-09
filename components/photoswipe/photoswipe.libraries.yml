@@ -8,7 +8,6 @@ component.photoswipe:
     photoswipe.js: {}
     photoswipe.event.js: {}
     photoswipe.event.immerse.js: {}
-    photoswipe.accessibility.js: {}
     photoswipe.persist.js: {}
     photoswipe.pointer.js: {}
     photoswipe.meta.js: {}
@@ -16,13 +15,17 @@ component.photoswipe:
     photoswipe.thumbnail.transition.js: {}
     photoswipe.icon.js: {}
     photoswipe.ui.js: {}
+    photoswipe.scroll.js: {}
+    photoswipe.focus.js: {}
   dependencies:
     - ambientimpact_media/photoswipe
     - ambientimpact_core/ally.js
+    - ambientimpact_core/component.fastdom
     - ambientimpact_core/component.media_query
     - ambientimpact_icon/component.icon
     - ambientimpact_ux/component.immerse
     - ambientimpact_ux/component.pointer_focus_hide
+    - ambientimpact_ux/component.scroll_blocker
 
 component.photoswipe.field:
   js:

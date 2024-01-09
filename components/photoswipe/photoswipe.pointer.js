@@ -3,9 +3,9 @@
 ----------------------------------------------------------------------------- */
 
 AmbientImpact.on(
-  ['photoswipe', 'photoswipeAccessibility', 'pointerFocusHide'],
+  ['photoswipe', 'photoswipe.focus', 'pointerFocusHide'],
 function(
-  aiPhotoSwipe, aiPhotoSwipeAccessibility, aiPointerFocusHide
+  aiPhotoSwipe, photoswipeFocus, aiPointerFocusHide
 ) {
 AmbientImpact.addComponent(
   'photoswipe.pointer',
@@ -28,7 +28,7 @@ function(aiPhotoSwipePointer, $) {
       aiPointerFocusHide.lock();
     });
   })
-  .on('PhotoSwipeAccessibilityDestroy.aiPhotoSwipePointer', function(
+  .on('PhotoSwipeFocusRestored.aiPhotoSwipePointer', function(
     event, gallery, $gallery, gallerySettings
   ) {
     // Unlock the pointer focus state when accessibility stuff has been
