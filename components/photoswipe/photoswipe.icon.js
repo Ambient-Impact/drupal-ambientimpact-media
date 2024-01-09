@@ -1,6 +1,6 @@
-/* -----------------------------------------------------------------------------
-   Ambient.Impact - Media - PhotoSwipe icon component
------------------------------------------------------------------------------ */
+// -----------------------------------------------------------------------------
+//   Ambient.Impact - Media - PhotoSwipe icons component
+// -----------------------------------------------------------------------------
 
 AmbientImpact.on(['photoswipe', 'photoswipe.event', 'icon'], function(
   aiPhotoSwipe, aiPhotoSwipeEvent, aiIcon

@@ -1,6 +1,6 @@
-/* -----------------------------------------------------------------------------
-   Ambient.Impact - Media - PhotoSwipe meta component
------------------------------------------------------------------------------ */
+// -----------------------------------------------------------------------------
+//   Ambient.Impact - Media - PhotoSwipe meta tag component
+// -----------------------------------------------------------------------------
 
 AmbientImpact.on('photoswipe', function(aiPhotoSwipe) {
 AmbientImpact.addComponent(

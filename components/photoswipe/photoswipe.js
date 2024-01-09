@@ -1,12 +1,12 @@
-/* -----------------------------------------------------------------------------
-   Ambient.Impact - Media - PhotoSwipe component
------------------------------------------------------------------------------ */
+// -----------------------------------------------------------------------------
+//   Ambient.Impact - Media - PhotoSwipe component
+// -----------------------------------------------------------------------------
 
 // This component is loosely based the getting started guide of the PhotoSwipe
 // documentation, which has been modified to use jQuery as much as possible, and
 // providing a jQuery plugin.
 
-// @see http://photoswipe.com/documentation/getting-started.html#dom-to-slide-objects
+// @see https://github.com/dimsemenov/PhotoSwipe/blob/v4.1.3/website/documentation/getting-started.md#-how-to-build-an-array-of-slides-from-a-list-of-links
 
 AmbientImpact.onGlobals(['PhotoSwipe'], function() {
 AmbientImpact.on(['jquery', 'mediaQuery'], function(aiJQuery, aiMediaQuery) {
@@ -356,8 +356,9 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
       // Check if the thumbnail ratio is marked as being the same as the
       // full image, and only set the thumbnail src (item.msrc) if so.
       // This tells PhotoSwipe to only scale in the thumbnail if the ratio
-      // is the same. See:
-      // http://photoswipe.com/documentation/faq.html#different-thumbnail-dimensions
+      // is the same.
+      //
+      // @see https://github.com/dimsemenov/PhotoSwipe/blob/v4.1.3/website/documentation/faq.md#-my-thumbnails-are-square-but-large-images-have-different-dimensions-what-to-do-with-openingclosing-transition
       if (item.ratioMatches) {
                 // .currentSrc gets us the current chosen image from srcset, if
         // available.
@@ -494,9 +495,9 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
     }
 
     if (gallerySettings.transition === 'zoom') {
-      // Get the bounds of the thumbnail for the zoom in/out effect. See
-      // the 'getThumbBoundsFn' section of documentation for more info:
-      // http://photoswipe.com/documentation/options.html
+      // Get the bounds of the thumbnail for the zoom in/out effect.
+      //
+      // @see https://github.com/dimsemenov/PhotoSwipe/blob/v4.1.3/website/documentation/options.md#getthumbboundsfn-function-undefined
       PhotoSwipeOptions.getThumbBoundsFn = function(index) {
         var thumbnail = $(items[index].el).find('img')[0],
           rect    = thumbnail.getBoundingClientRect();

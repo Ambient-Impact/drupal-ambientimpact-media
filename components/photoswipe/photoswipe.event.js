@@ -1,21 +1,23 @@
-/* -----------------------------------------------------------------------------
-   Ambient.Impact - Media - PhotoSwipe event component
------------------------------------------------------------------------------ */
+// -----------------------------------------------------------------------------
+//   Ambient.Impact - Media - PhotoSwipe events component
+// -----------------------------------------------------------------------------
 
-// The following PhotoSwipe events are fired on the viewer element as a
-// convenience, invoked from gallery.listen():
-// * initialZoomIn    => PhotoSwipeInitialZoomIn
-// * initialZoomInEnd => PhotoSwipeInitialZoomInEnd
-// * initialZoomOut   => PhotoSwipeInitialZoomOut
+// The following PhotoSwipe events are triggered on the viewer element as a
+// convenience:
+//
+// * initialZoomIn      => PhotoSwipeInitialZoomIn
+// * initialZoomInEnd   => PhotoSwipeInitialZoomInEnd
+// * initialZoomOut     => PhotoSwipeInitialZoomOut
 // * initialZoomOutEnd  => PhotoSwipeInitialZoomOutEnd
-// * beforeChange   => PhotoSwipeBeforeChange
-// * afterChange    => PhotoSwipeAfterChange
-
-// See: http://photoswipe.com/documentation/api.html (Events heading)
-
+// * beforeChange       => PhotoSwipeBeforeChange
+// * afterChange        => PhotoSwipeAfterChange
+//
+// @see https://github.com/dimsemenov/PhotoSwipe/blob/v4.1.3/website/documentation/api.md#events
+//
 // This provides some additional events that the main PhotoSwipe component or
-// PhotoSwipe library itself do not provide. These are fired on the viewer
+// PhotoSwipe library itself do not provide. These are triggered on the viewer
 // element:
+//
 // * PhotoSwipeZoomIn
 // * PhotoSwipeZoomOut
 
