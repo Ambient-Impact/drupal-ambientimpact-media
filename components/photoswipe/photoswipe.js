@@ -553,6 +553,22 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
   };
 
   /**
+   * Destroy all existing PhotoSwipe galleries.
+   */
+  this.destroyAll = function() {
+
+    for (let galleryUid in galleries) {
+
+      galleries[galleryUid].$gallery.PhotoSwipeDestroy();
+
+    }
+
+    // Reset the counter.
+    galleryUIDCounter = 1;
+
+  };
+
+  /**
    * PhotoSwipe jQuery plugin.
    *
    * This saves gallery settings, fires attach events, and attaches click
