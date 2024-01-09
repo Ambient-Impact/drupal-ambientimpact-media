@@ -93,6 +93,22 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
   };
 
   /**
+   * The PhotoSwipe viewer element, wrapped in a jQuery collection.
+   *
+   * @type {jQuery}
+   */
+  const $viewer = $(`.${$.PhotoSwipe.baseClass}`);
+
+  /**
+   * Get the PhotoSwipe viewer element jQuery collection.
+   *
+   * @return {jQuery}
+   */
+  this.getViewer = function() {
+    return $viewer;
+  };
+
+  /**
    * Get a gallery object.
    *
    * @param {number} galleryUID
