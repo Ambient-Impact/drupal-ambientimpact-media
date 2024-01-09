@@ -16,8 +16,6 @@
 // This provides some additional events that the main PhotoSwipe component or
 // PhotoSwipe library itself do not provide. These are fired on the viewer
 // element:
-// * PhotoSwipeFullscreenEnter
-// * PhotoSwipeFullscreenExit
 // * PhotoSwipeZoomIn
 // * PhotoSwipeZoomOut
 
@@ -62,63 +60,6 @@ function(aiPhotoSwipeEvent, $) {
           gallerySettings
         ]);
       });
-    });
-  });
-
-
-  // Don't do anything until the gallery has finished transitioning to the
-  // open state, so as to not affect performance.
-  $viewer.on('PhotoSwipeInitialZoomInEnd.aiPhotoSwipeEvent', function(
-    event, gallery, $gallery, gallerySettings
-  ) {
-    // Check that the PhotoSwipe UI offers the method to get the browser's
-    // fullscreen API. This is still a patchwork of vendor prefixes as of
-    // May 2018, so this is required. See ui.getFullscreenAPI in
-    // photoswipe-ui-default.js.
-    if (
-      !gallery.ui ||
-      !gallery.ui.getFullscreenAPI ||
-      typeof gallery.ui.getFullscreenAPI !== 'function'
-    ) {
-      return;
-    }
-
-    var api = gallery.ui.getFullscreenAPI();
-
-    // Check in case something borked for an unforeseen reason. If the
-    // API is not supported at all, api.isFullscreen() is not defined by
-    // the default PhotoSwipe UI. See ui.getFullscreenAPI in
-    // photoswipe-ui-default.js.
-    if (
-      !api.eventK ||
-      !api.isFullscreen ||
-      typeof api.isFullscreen !== 'function'
-    ) {
-      return;
-    }
-
-    // Attach events
-    $(document).on(api.eventK + '.aiPhotoSwipeEvent', function(event) {
-      if (api.isFullscreen()) {
-        // We've entered fullscreen.
-        $gallery.trigger('PhotoSwipeFullscreenEnter', [
-          gallery,
-          $gallery,
-          gallerySettings
-        ]);
-      } else {
-        // We've exited fullscreen.
-        $gallery.trigger('PhotoSwipeFullscreenExit', [
-          gallery,
-          $gallery,
-          gallerySettings
-        ]);
-      }
-    });
-
-    // Unbind the event when the gallery is destroyed.
-    gallery.listen('destroy', function() {
-      $(document).off(api.eventK + '.aiPhotoSwipeEvent');
     });
   });
 

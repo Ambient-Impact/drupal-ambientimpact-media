@@ -75,16 +75,14 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
       // reduced motion, 'fade' will be used, even if 'zoom' is set.
       transition:       'zoom',
 
-      // PhotoSwipe options go here:
-      // http://photoswipe.com/documentation/options.html
+      // PhotoSwipe options:
+      //
+      // @see https://github.com/dimsemenov/PhotoSwipe/blob/v4.1.3/website/documentation/options.md
       PhotoSwipe: {
-        // This is disabled for the moment, as it's buggy. In addition,
-        // using navigator.share() (if available) to replace this would
-        // make a lot more sense. In that case, breaking out the
-        // Download link into its own button and making the share button
-        // simply invoke navigator.share() would be ideal. See:
-        // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
-        shareEl:      false
+        // These are removed in PhotoSwipe 5 and have various bugs or other
+        // issues in PhotoSwipe 4, so they're disabled.
+        shareEl:      false,
+        fullscreenEl: false,
       }
     },
 

@@ -14,7 +14,6 @@ component.photoswipe:
     photoswipe.hash.js: {}
     photoswipe.thumbnail.transition.js: {}
     photoswipe.icon.js: {}
-    photoswipe.ui.js: {}
     photoswipe.scroll.js: {}
     photoswipe.focus.js: {}
   dependencies:

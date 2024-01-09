@@ -12,9 +12,7 @@ AmbientImpact.addComponent('photoswipe.icon', function(aiPhotoSwipeIcon, $) {
     // classes to determine which icon goes into each button.
   var cssButtonMap      = {
       'close':        'close',
-      'fs':           'fullscreen-enter',
       'zoom':         'zoom-in',
-      'share':        'share',
       'arrow--left':  'arrow-left',
       'arrow--right': 'arrow-right',
     },
@@ -29,9 +27,7 @@ AmbientImpact.addComponent('photoswipe.icon', function(aiPhotoSwipeIcon, $) {
     // The PhotoSwipe viewer root class.
     viewerClass     = $.PhotoSwipe.baseClass,
     // The zoom button.
-    $zoomButton     = $('.' + viewerClass + '__button--zoom'),
-    // The fullscreen toggle button.
-    $fullscreenButton = $('.' + viewerClass + '__button--fs');
+    $zoomButton     = $('.' + viewerClass + '__button--zoom');
 
   // Build the icon names and settings from the settings we're passed.
   $.each(aiPhotoSwipe.settings.icons, function(bundleName, iconMap) {
@@ -92,20 +88,6 @@ AmbientImpact.addComponent('photoswipe.icon', function(aiPhotoSwipeIcon, $) {
     // We just zoomed out, so change the button icon out to zoom in.
     updateButtonIcon($zoomButton, 'zoom-in');
 
-  }).on('PhotoSwipeFullscreenEnter.aiPhotoSwipeIcon', function(
-    event, gallery, $gallery, gallerySettings
-  ) {
-    // We just entered fullscreen, so change the button icon to fullscreen
-    // exit.
-    updateButtonIcon($fullscreenButton, 'fullscreen-exit');
-
-  }).on('PhotoSwipeFullscreenExit.aiPhotoSwipeIcon', function(
-    event, gallery, $gallery, gallerySettings
-  ) {
-    // We just exited fullscreen, so change the button icon to fullscreen
-    // enter.
-    updateButtonIcon($fullscreenButton, 'fullscreen-enter');
-
   }).on('PhotoSwipeBeforeChange.aiPhotoSwipeIcon', function(
     event, gallery, $gallery, gallerySettings
   ) {
@@ -119,8 +101,7 @@ AmbientImpact.addComponent('photoswipe.icon', function(aiPhotoSwipeIcon, $) {
     // Reset zoom and fullscreen button states, in case the user closed the
     // viewer while zoomed in or in fullscreen mode. If we don't do this,
     // the buttons will erroneously retain their states.
-    updateButtonIcon($zoomButton,   'zoom-in');
-    updateButtonIcon($fullscreenButton, 'fullscreen-enter');
+    updateButtonIcon($zoomButton, 'zoom-in');
   });
 });
 });

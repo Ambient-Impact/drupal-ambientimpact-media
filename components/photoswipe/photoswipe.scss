@@ -43,28 +43,6 @@
     line-height:  inherit;
   }
 
-  // Share menu.
-  &__share-tooltip a {
-    font-size:    100%;
-    line-height:  inherit;
-
-    .ambientimpact-icon {
-      // Since we've removed underlines, align the icon to centre so it
-      // doesn't look misaligned next to the text.
-      @include icon.set-icon-vertical-alignment('center');
-
-      // Align the whole inline icon container to the middle, so we have
-      // more or less the same space above and below the icon + text.
-      vertical-align: middle;
-    }
-  }
-  &__share-tooltip a:not(&__share--facebook):not(&__share--twitter) {
-    @include link-state.highlight {
-      // This contrasts far better with the white icons/text.
-      background-color: colour.greyscale(50%);
-    }
-  }
-
   // All standalone icons.
   .ambientimpact-icon--icon-standalone {
     @include icon.set-icon-size($photoswipe-icon-size);
