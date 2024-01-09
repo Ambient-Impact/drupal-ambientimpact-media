@@ -9,6 +9,7 @@ component.photoswipe:
     photoswipe.event.js: {}
     photoswipe.event.immerse.js: {}
     photoswipe.accessibility.js: {}
+    photoswipe.persist.js: {}
     photoswipe.pointer.js: {}
     photoswipe.meta.js: {}
     photoswipe.hash.js: {}
