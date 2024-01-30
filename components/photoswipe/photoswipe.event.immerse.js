@@ -2,30 +2,52 @@
 //   Ambient.Impact - Media - PhotoSwipe immerse events component
 // -----------------------------------------------------------------------------
 
+// Triggers 'immerseEnter' and 'immerseExit' events on PhotoSwipe open and
+// close, respectively.
+
 AmbientImpact.on(['photoswipe', 'photoswipe.event'], function(
   aiPhotoSwipe,
-  aiPhotoSwipeEvent
+  aiPhotoSwipeEvent,
 ) {
 AmbientImpact.addComponent(
   'photoswipe.event.immerse',
 function(aiPhotoSwipeEventImmerse, $) {
+
   'use strict';
 
-  var $PhotoSwipe = $('.' + $.PhotoSwipe.baseClass);
+  /**
+   * Event namespace name.
+   *
+   * @type {String}
+   */
+  const eventNamespace = this.getName();
 
-  // Fire immerseEnter and immerseExit events on the document on PhotoSwipe
-  // open and close, respectively.
-  $(document).on(
-    'PhotoSwipeInitialZoomIn.aiPhotoSwipeEventImmerse',
-  function(
-    event, gallery, $gallery, gallerySettings
-  ) {
-    $(document).trigger('immerseEnter', [$PhotoSwipe[0]]);
+  this.addBehaviour(
+    'AmbientImpactPhotoSwipeEventImmerse',
+    'ambientimpact-photoswipe-event-immerse',
+    'body',
+    function(context, settings) {
 
-  }).on('PhotoSwipeInitialZoomOut.aiPhotoSwipeEventImmerse', function(
-    event, gallery, $gallery, gallerySettings
-  ) {
-    $(document).trigger('immerseExit', [$PhotoSwipe[0]]);
-  });
+      aiPhotoSwipe.getViewer().on(
+        `PhotoSwipeInitialZoomIn.${eventNamespace}`,
+      function(event) {
+        $(this).trigger('immerseEnter');
+      }).on(
+        `PhotoSwipeInitialZoomOut.${eventNamespace}`,
+      function(event) {
+        $(this).trigger('immerseExit');
+      });
+
+    },
+    function(context, settings, trigger) {
+
+      aiPhotoSwipe.getViewer().off([
+        `PhotoSwipeInitialZoomIn.${eventNamespace}`,
+        `PhotoSwipeInitialZoomOut.${eventNamespace}`,
+      ].join(' '));
+
+    }
+  );
+
 });
 });
