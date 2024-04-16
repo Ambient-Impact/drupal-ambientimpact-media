@@ -20,7 +20,7 @@
     "cweagans/composer-patches": "^1.7.0",
     "drupal/ambientimpact_core": "^2.0@dev",
     "drupal/ambientimpact_icon": "^1.0@dev",
-    "drupal/ambientimpact_ux": "^1.0@dev",
+    "drupal/ambientimpact_ux": "^1.0@dev || ^2.0@dev",
     "drupal/hook_event_dispatcher": "^4.0",
     "drupal/hux": "^1.2",
     "drupal/image_field_caption": "^1.1",
