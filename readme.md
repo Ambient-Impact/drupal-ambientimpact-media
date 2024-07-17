@@ -116,7 +116,7 @@ Once those are defined, add the following to the `"dependencies"` section of
 your top-level `package.json`:
 
 ```json
-"drupal-ambientimpact-media": "workspace:^3"
+"drupal-ambientimpact-media": "workspace:^5"
 ```
 
 Then run `yarn install` and let Yarn do the rest.
@@ -216,3 +216,7 @@ The following major version bumps indicate breaking changes:
     * `\Drupal\ambientimpact_media\Plugin\migrate\process\YouTube`
 
     * `\Drupal\ambientimpact_media\Plugin\migrate\source\FileEntity`
+
+* 5.x:
+
+  * Requires Drupal 10.3 or 11.0 due to [oEmbed hook patch](https://www.drupal.org/project/drupal/issues/3042423); explicitly does not support Drupal 11.1 to prevent future breakage due to patch.

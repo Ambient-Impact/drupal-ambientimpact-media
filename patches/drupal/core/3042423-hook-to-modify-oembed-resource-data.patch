@@ -1,17 +1,17 @@
 diff --git a/core/misc/cspell/dictionary.txt b/core/misc/cspell/dictionary.txt
-index 8fcbd4fe32..2cf1fd68f9 100644
+index 5eda566e2f..cdf5dfa1d1 100644
 --- a/core/misc/cspell/dictionary.txt
 +++ b/core/misc/cspell/dictionary.txt
-@@ -377,6 +377,7 @@ hoglet
+@@ -300,6 +300,7 @@ hilited
+ hmac
  hookname
  hosters
- hostnames
 +hqdefault
  hrefs
- htkey
  htmlcorrector
-@@ -475,6 +476,7 @@ mathematica
- maxage
+ httpheader
+@@ -375,6 +376,7 @@ maryjane
+ matchout
  maximumred
  maxlifetime
 +maxresdefault
@@ -45,10 +45,10 @@ index 93244f58a8..fc3db0484a 100644
   * Alters an oEmbed resource URL before it is fetched.
   *
 diff --git a/core/modules/media/media.services.yml b/core/modules/media/media.services.yml
-index 26c688b55d..1cb886258c 100644
+index c8fb03c454..3b95021eee 100644
 --- a/core/modules/media/media.services.yml
 +++ b/core/modules/media/media.services.yml
-@@ -12,7 +12,7 @@ services:
+@@ -14,7 +14,7 @@ services:
    Drupal\media\OEmbed\ProviderRepositoryInterface: '@media.oembed.provider_repository'
    media.oembed.resource_fetcher:
      class: Drupal\media\OEmbed\ResourceFetcher
@@ -58,7 +58,7 @@ index 26c688b55d..1cb886258c 100644
    media.oembed.iframe_url_helper:
      class: Drupal\media\IFrameUrlHelper
 diff --git a/core/modules/media/src/OEmbed/ResourceFetcher.php b/core/modules/media/src/OEmbed/ResourceFetcher.php
-index 789fb82aeb..aabcc3f82a 100644
+index 76c2d8b3b7..34877641a2 100644
 --- a/core/modules/media/src/OEmbed/ResourceFetcher.php
 +++ b/core/modules/media/src/OEmbed/ResourceFetcher.php
 @@ -4,6 +4,7 @@
@@ -67,8 +67,8 @@ index 789fb82aeb..aabcc3f82a 100644
  use Drupal\Core\Cache\CacheBackendInterface;
 +use Drupal\Core\Extension\ModuleHandlerInterface;
  use GuzzleHttp\ClientInterface;
- use GuzzleHttp\Exception\TransferException;
  use GuzzleHttp\RequestOptions;
+ use Psr\Http\Client\ClientExceptionInterface;
 @@ -36,6 +37,13 @@ class ResourceFetcher implements ResourceFetcherInterface {
     */
    protected $cacheBackend;
@@ -113,7 +113,7 @@ index 789fb82aeb..aabcc3f82a 100644
  
      return $this->createResource($data, $url);
 diff --git a/core/modules/media/tests/modules/media_test_oembed/media_test_oembed.module b/core/modules/media/tests/modules/media_test_oembed/media_test_oembed.module
-index 7ab7f12496..2c06d78b4e 100644
+index 7ab7f12496..b803ce18c1 100644
 --- a/core/modules/media/tests/modules/media_test_oembed/media_test_oembed.module
 +++ b/core/modules/media/tests/modules/media_test_oembed/media_test_oembed.module
 @@ -27,3 +27,13 @@ function media_test_oembed_oembed_resource_url_alter(array &$parsed_url, Provide
@@ -130,19 +130,20 @@ index 7ab7f12496..2c06d78b4e 100644
 +    $data['width'] = 600;
 +  }
 +}
+\ No newline at end of file
 diff --git a/core/modules/media/tests/src/Functional/ResourceFetcherTest.php b/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
-index b83f7b9fa8..c8d61577db 100644
+index ec327a73ac..04c8e01c9b 100644
 --- a/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
 +++ b/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
-@@ -34,6 +34,7 @@ protected function setUp(): void {
+@@ -38,6 +38,7 @@ protected function setUp(): void {
     * Data provider for testFetchResource().
     *
     * @return array
 +   *   Resources data provider.
     */
-   public function providerFetchResource() {
+   public static function providerFetchResource() {
      return [
-@@ -74,4 +75,19 @@ public function testFetchResource($resource_url, $provider_name, $title) {
+@@ -78,4 +79,18 @@ public function testFetchResource($resource_url, $provider_name, $title): void {
      $this->assertSame($title, $resource->getTitle());
    }
  
@@ -153,8 +154,7 @@ index b83f7b9fa8..c8d61577db 100644
 +    $this->container->get('module_installer')->install(['media_test_oembed']);
 +
 +    // Get the resource.
-+    $resource_url = $this->container->get('media.oembed.resource_fetcher')
-+      ->fetchResource('https://publish.twitter.com/oembed?url=https://twitter.com/Dries/status/999985431595880448');
++    $resource_url = $this->container->get('media.oembed.resource_fetcher')+      ->fetchResource('https://publish.twitter.com/oembed?url=https://twitter.com/Dries/status/999985431595880448');
 +
 +    // Check media_test_oembed_oembed_resource_data_alter
 +    // to see the hook implementation.
@@ -163,10 +163,10 @@ index b83f7b9fa8..c8d61577db 100644
 +
  }
 diff --git a/core/modules/media/tests/src/Unit/ResourceFetcherTest.php b/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
-index 8cd96683c9..127dc5c120 100644
+index af8123ab3d..ad43eede17 100644
 --- a/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
 +++ b/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
-@@ -43,7 +43,8 @@ public function testFetchTimeout(): void {
+@@ -45,7 +45,8 @@ public function testFetchTimeout(): void {
      $fetcher = new ResourceFetcher(
        $client->reveal(),
        $this->createMock('\Drupal\media\OEmbed\ProviderRepositoryInterface'),
@@ -176,7 +176,7 @@ index 8cd96683c9..127dc5c120 100644
      );
      $fetcher->fetchResource($url);
    }
-@@ -80,7 +81,12 @@ public function testUnknownContentTypeHeader(): void {
+@@ -82,7 +83,12 @@ public function testUnknownContentTypeHeader(): void {
      ]);
      $providers = $this->createMock('\Drupal\media\OEmbed\ProviderRepositoryInterface');
  
