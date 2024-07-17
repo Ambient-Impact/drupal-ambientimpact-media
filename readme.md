@@ -116,7 +116,7 @@ Once those are defined, add the following to the `"dependencies"` section of
 your top-level `package.json`:
 
 ```json
-"drupal-ambientimpact-media": "workspace:^3"
+"drupal-ambientimpact-media": "workspace:^4"
 ```
 
 Then run `yarn install` and let Yarn do the rest.
