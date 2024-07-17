@@ -9,7 +9,7 @@ work-in-progress. Stable releases may be provided at a later date.
 
 # Requirements
 
-* [Drupal 10.2](https://www.drupal.org/download)
+* [Drupal 10.3 or 11.0](https://www.drupal.org/download)
 
 * PHP 8.1
 
