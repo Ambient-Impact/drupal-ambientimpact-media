@@ -64,7 +64,6 @@ dependencies](https://github.com/cweagans/composer-patches/tree/1.x#allowing-pat
 a minimum, you should have these values in your root `composer.json` (merge with
 existing keys as needed):
 
-
 ```json
 {
   "require": {
