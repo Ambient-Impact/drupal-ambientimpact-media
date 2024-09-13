@@ -1,8 +1,8 @@
 diff --git a/core/misc/cspell/dictionary.txt b/core/misc/cspell/dictionary.txt
-index 5eda566e2f..cdf5dfa1d1 100644
+index 9687daecb44..5a48c69bb5a 100644
 --- a/core/misc/cspell/dictionary.txt
 +++ b/core/misc/cspell/dictionary.txt
-@@ -300,6 +300,7 @@ hilited
+@@ -297,6 +297,7 @@ hilited
  hmac
  hookname
  hosters
@@ -10,7 +10,7 @@ index 5eda566e2f..cdf5dfa1d1 100644
  hrefs
  htmlcorrector
  httpheader
-@@ -375,6 +376,7 @@ maryjane
+@@ -372,6 +373,7 @@ maryjane
  matchout
  maximumred
  maxlifetime
@@ -19,7 +19,7 @@ index 5eda566e2f..cdf5dfa1d1 100644
  mbytes
  mdhash
 diff --git a/core/modules/media/media.api.php b/core/modules/media/media.api.php
-index 93244f58a8..fc3db0484a 100644
+index 93244f58a8a..fc3db0484ab 100644
 --- a/core/modules/media/media.api.php
 +++ b/core/modules/media/media.api.php
 @@ -20,6 +20,21 @@ function hook_media_source_info_alter(array &$sources) {
@@ -45,7 +45,7 @@ index 93244f58a8..fc3db0484a 100644
   * Alters an oEmbed resource URL before it is fetched.
   *
 diff --git a/core/modules/media/media.services.yml b/core/modules/media/media.services.yml
-index c8fb03c454..3b95021eee 100644
+index c8fb03c4540..3b95021eee9 100644
 --- a/core/modules/media/media.services.yml
 +++ b/core/modules/media/media.services.yml
 @@ -14,7 +14,7 @@ services:
@@ -58,7 +58,7 @@ index c8fb03c454..3b95021eee 100644
    media.oembed.iframe_url_helper:
      class: Drupal\media\IFrameUrlHelper
 diff --git a/core/modules/media/src/OEmbed/ResourceFetcher.php b/core/modules/media/src/OEmbed/ResourceFetcher.php
-index 76c2d8b3b7..34877641a2 100644
+index 76c2d8b3b7f..34877641a29 100644
 --- a/core/modules/media/src/OEmbed/ResourceFetcher.php
 +++ b/core/modules/media/src/OEmbed/ResourceFetcher.php
 @@ -4,6 +4,7 @@
@@ -113,7 +113,7 @@ index 76c2d8b3b7..34877641a2 100644
  
      return $this->createResource($data, $url);
 diff --git a/core/modules/media/tests/modules/media_test_oembed/media_test_oembed.module b/core/modules/media/tests/modules/media_test_oembed/media_test_oembed.module
-index 7ab7f12496..b803ce18c1 100644
+index 7ab7f124968..b803ce18c14 100644
 --- a/core/modules/media/tests/modules/media_test_oembed/media_test_oembed.module
 +++ b/core/modules/media/tests/modules/media_test_oembed/media_test_oembed.module
 @@ -27,3 +27,13 @@ function media_test_oembed_oembed_resource_url_alter(array &$parsed_url, Provide
@@ -132,7 +132,7 @@ index 7ab7f12496..b803ce18c1 100644
 +}
 \ No newline at end of file
 diff --git a/core/modules/media/tests/src/Functional/ResourceFetcherTest.php b/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
-index ec327a73ac..04c8e01c9b 100644
+index ec327a73ac7..5ad7d6364fb 100644
 --- a/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
 +++ b/core/modules/media/tests/src/Functional/ResourceFetcherTest.php
 @@ -38,6 +38,7 @@ protected function setUp(): void {
@@ -143,18 +143,19 @@ index ec327a73ac..04c8e01c9b 100644
     */
    public static function providerFetchResource() {
      return [
-@@ -78,4 +79,18 @@ public function testFetchResource($resource_url, $provider_name, $title): void {
+@@ -78,4 +79,19 @@ public function testFetchResource($resource_url, $provider_name, $title): void {
      $this->assertSame($title, $resource->getTitle());
    }
  
 +  /**
 +   * Tests that hook_oembed_resource_data_alter() is invoked.
 +   */
-+  public function testResourceDataAlter() {
++  public function testResourceDataAlter(): void {
 +    $this->container->get('module_installer')->install(['media_test_oembed']);
 +
 +    // Get the resource.
-+    $resource_url = $this->container->get('media.oembed.resource_fetcher')+      ->fetchResource('https://publish.twitter.com/oembed?url=https://twitter.com/Dries/status/999985431595880448');
++    $resource_url = $this->container->get('media.oembed.resource_fetcher')
++      ->fetchResource('https://publish.twitter.com/oembed?url=https://twitter.com/Dries/status/999985431595880448');
 +
 +    // Check media_test_oembed_oembed_resource_data_alter
 +    // to see the hook implementation.
@@ -163,7 +164,7 @@ index ec327a73ac..04c8e01c9b 100644
 +
  }
 diff --git a/core/modules/media/tests/src/Unit/ResourceFetcherTest.php b/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
-index af8123ab3d..ad43eede17 100644
+index af8123ab3d1..ad43eede174 100644
 --- a/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
 +++ b/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
 @@ -45,7 +45,8 @@ public function testFetchTimeout(): void {
