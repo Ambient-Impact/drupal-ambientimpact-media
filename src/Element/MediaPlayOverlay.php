@@ -2,14 +2,14 @@
 
 namespace Drupal\ambientimpact_media\Element;
 
-use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Render\Element\RenderElementBase;
 
 /**
  * Provides a media play overlay render element.
  *
  * @RenderElement("media_play_overlay")
  */
-class MediaPlayOverlay extends RenderElement {
+class MediaPlayOverlay extends RenderElementBase {
   /**
    * {@inheritdoc}
    */
