@@ -43,6 +43,15 @@ AmbientImpact.addComponent('photoswipe.scroll', function(photoswipeScroll, $) {
      */
     const $viewer = aiPhotoSwipe.getViewer();
 
+    // If the viewer gets rebuilt in some cases the property will not have been
+    // initialized so do that here to avoid errors.
+    //
+    // @todo Remove this when we refactor into a proper self-contained class
+    //   without these standalone handler functions which can get out of sync.
+    if (typeof $viewer.prop(propertyName) === 'undefined') {
+      aiPhotoSwipe.getViewer().prop(propertyName, aiScrollBlocker.create());
+    }
+
     $viewer.prop(propertyName).block($viewer);
 
   };

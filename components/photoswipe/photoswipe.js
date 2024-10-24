@@ -95,7 +95,7 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
    *
    * @type {jQuery}
    */
-  const $viewer = $(`.${$.PhotoSwipe.baseClass}`);
+  let $viewer = $(`.${$.PhotoSwipe.baseClass}`);
 
   /**
    * Get the PhotoSwipe viewer element jQuery collection.
@@ -103,7 +103,15 @@ AmbientImpact.addComponent('photoswipe', function(aiPhotoSwipe, $) {
    * @return {jQuery}
    */
   this.getViewer = function() {
+
+    // If the viewer element wasn't found, create it from the HTML for this
+    // component. This can occur if navigating the site using RefreshLess.
+    if ($viewer.length === 0) {
+      $viewer = $(aiPhotoSwipe.getHTML());
+    }
+
     return $viewer;
+
   };
 
   /**
