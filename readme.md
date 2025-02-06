@@ -154,10 +154,6 @@ The following patches are supplied (see [Patching](#patching) above):
 
   * [Add a hook to modify oEmbed resource data [#3042423]](https://www.drupal.org/project/drupal/issues/3042423#comment-15098326) (requires Drupal core 10.0)
 
-* [Image Field Caption module](https://www.drupal.org/project/image_field_caption):
-
-  * [Caption required incorrectly based on alt field required [#3181263]](https://www.drupal.org/project/image_field_caption/issues/3181263#comment-13895775)
-
 ----
 
 # Major breaking changes
