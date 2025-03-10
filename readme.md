@@ -163,7 +163,7 @@ For Drupal core 10.3.x:
   "extra": {
     "patches": {
       "drupal/core": {
-        "Add a hook to modify oEmbed resource data (core 10.3.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423#comment-15772049": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/5.x/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data-10.3.x.patch"
+        "Add a hook to modify oEmbed resource data (core 10.3.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423#comment-15772049": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/0d2fd03030b6659814fad2dfd0383d0654f5a6c9/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data-10.3.x.patch"
       }
     }
   }
@@ -175,7 +175,7 @@ For Drupal core 10.4.x or 11.0.x (not 11.1.x):
   "extra": {
     "patches": {
       "drupal/core": {
-        "Add a hook to modify oEmbed resource data (core 10.4.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423#comment-15944908": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/5.x/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data-10.4.x.patch"
+        "Add a hook to modify oEmbed resource data (core 10.4.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423#comment-15944908": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/0d2fd03030b6659814fad2dfd0383d0654f5a6c9/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data-10.4.x.patch"
       }
     }
   }
