@@ -152,7 +152,34 @@ The following patches are supplied (see [Patching](#patching) above):
 
 * Drupal core:
 
-  * [Add a hook to modify oEmbed resource data [#3042423]](https://www.drupal.org/project/drupal/issues/3042423#comment-15098326) (requires Drupal core 10.0)
+  * [Add a hook to modify oEmbed resource data [#3042423]](https://www.drupal.org/project/drupal/issues/3042423#comment-15098326) (requires Drupal core 10.3 or newer)
+
+If you need the above patch, we don't apply it automatically because it tends to
+break every minor core version, so you'll have to opt in by merging the appropriate minor version below into your root `composer.json` or patches file.
+
+For Drupal core 10.3.x:
+
+```json
+  "extra": {
+    "patches": {
+      "drupal/core": {
+        "Add a hook to modify oEmbed resource data (core 10.3.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423#comment-15772049": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/5.x/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data-10.3.x.patch"
+      }
+    }
+  }
+```
+
+For Drupal core 10.4.x or 11.0.x (not 11.1.x):
+
+```json
+  "extra": {
+    "patches": {
+      "drupal/core": {
+        "Add a hook to modify oEmbed resource data (core 10.4.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423#comment-15944908": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/5.x/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data-10.4.x.patch"
+      }
+    }
+  }
+```
 
 ----
 
@@ -214,4 +241,4 @@ The following major version bumps indicate breaking changes:
 
 * 5.x:
 
-  * Requires Drupal 10.3 or 11.0 due to [oEmbed hook patch](https://www.drupal.org/project/drupal/issues/3042423); explicitly does not support Drupal 11.1 to prevent future breakage due to patch.
+  * Requires Drupal 10.3 or 11.0.
