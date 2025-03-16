@@ -4,3 +4,5 @@ component.media_play_overlay:
       media_play_overlay.css: {}
   js:
     media_play_overlay.js: {}
+  dependencies:
+    - ambientimpact_icon/component.icon

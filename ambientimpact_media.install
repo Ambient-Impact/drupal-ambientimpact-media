@@ -14,3 +14,12 @@ function ambientimpact_media_update_10201(): void {
   \Drupal::service('module_installer')->install(['hux']);
 
 }
+
+/**
+ * Rebuild libraries to add missing media play overlay icon dependency.
+ */
+function ambientimpact_media_update_10202(): void {
+
+  \Drupal::service('library.discovery')->clearCachedDefinitions();
+
+}
