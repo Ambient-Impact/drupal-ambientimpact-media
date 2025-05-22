@@ -23,3 +23,12 @@ function ambientimpact_media_update_10202(): void {
   \Drupal::service('library.discovery')->clearCachedDefinitions();
 
 }
+
+/**
+ * Rebuild the container for our new logger channel.
+ */
+function ambientimpact_media_update_10203(): void {
+
+  \Drupal::service('kernel')->invalidateContainer();
+
+}

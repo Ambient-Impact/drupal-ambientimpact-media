@@ -127,3 +127,8 @@ services:
     class: Drupal\ambientimpact_media\EventSubscriber\Theme\ThemeRegistryAlterTracksVariableEventSubscriber
     tags:
       - { name: 'event_subscriber' }
+
+  logger.channel.ambientimpact_media:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: ['ambientimpact_media']

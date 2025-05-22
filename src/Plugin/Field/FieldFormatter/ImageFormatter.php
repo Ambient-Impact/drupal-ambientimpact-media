@@ -13,6 +13,7 @@ use Drupal\image\Plugin\Field\FieldFormatter\ImageFormatter as CoreImageFormatte
 use Drupal\media\OEmbed\UrlResolverInterface;
 use Drupal\ambientimpact_core\Config\Entity\ThirdPartySettingsDefaultsTrait;
 use Drupal\ambientimpact_core\ComponentPluginManagerInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Plugin override of the core 'image' formatter.
@@ -77,6 +78,9 @@ class ImageFormatter extends CoreImageFormatter {
    *
    * @param \Drupal\media\OEmbed\UrlResolverInterface $mediaoEmbedURLResolver
    *   The Drupal media oEmbed URL resolver service.
+   *
+   * @param \Psr\Log\LoggerInterface $loggerChannel
+   *   Our logger channel.
    */
   public function __construct(
     $pluginID,
@@ -90,7 +94,8 @@ class ImageFormatter extends CoreImageFormatter {
     EntityStorageInterface $imageStyleStorage,
     FileUrlGeneratorInterface $fileUrlGenerator,
     ComponentPluginManagerInterface $componentManager,
-    UrlResolverInterface $mediaoEmbedURLResolver
+    UrlResolverInterface $mediaoEmbedURLResolver,
+    protected readonly LoggerInterface $loggerChannel,
   ) {
     parent::__construct(
       $pluginID, $pluginDefinition, $fieldDefinition, $settings, $label,
@@ -131,7 +136,8 @@ class ImageFormatter extends CoreImageFormatter {
       $container->get('entity_type.manager')->getStorage('image_style'),
       $container->get('file_url_generator'),
       $container->get('plugin.manager.ambientimpact_component'),
-      $container->get('media.oembed.url_resolver')
+      $container->get('media.oembed.url_resolver'),
+      $container->get('logger.channel.ambientimpact_media'),
     );
   }
 
@@ -215,7 +221,11 @@ class ImageFormatter extends CoreImageFormatter {
           ->getProviderByUrl($elements[0]['#url']);
 
         $providerName = $provider->getName();
-      } catch (Exception $exception) {
+      } catch (\Exception $exception) {
+
+        // @todo Add exception trace and line number?
+        $this->loggerChannel->error($exception->getMessage());
+
       }
 
       if (\method_exists($entity, 'getName')) {
