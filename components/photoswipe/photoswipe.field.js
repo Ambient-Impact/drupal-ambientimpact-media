@@ -63,7 +63,7 @@ AmbientImpact.addComponent('photoswipe.field', function(aiPhotoSwipeField, $) {
     },
     function(context, settings, trigger) {
 
-      this.$photoswipeFieldEntityReferenceGallery.PhotoSwipeDestroy();
+      this.$photoswipeFieldEntityReferenceGallery?.PhotoSwipeDestroy();
 
       delete this.$photoswipeFieldEntityReferenceGallery;
 
