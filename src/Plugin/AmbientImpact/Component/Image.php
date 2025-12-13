@@ -292,6 +292,10 @@ class Image extends ComponentBase {
 
     foreach ($variables['items'] as $delta => &$item) {
 
+      if (empty($item['content']['#item'])) {
+        continue;
+      }
+
       /** @var string[] */
       $dimensions = $this->getImageStyleDerivativeDimensions(
         $item['content']['#item'],
@@ -345,6 +349,7 @@ class Image extends ComponentBase {
     // Visually Hidden -"), Drupal will make the field wrapper the field item
     // container, merging in the classes but not other attributes
     if (
+      isset($maxWidth) &&
       $variables['multiple'] === false &&
       $variables['label_hidden'] === true &&
       $variables['items'][0]['content']['#constrain_width'] === true
