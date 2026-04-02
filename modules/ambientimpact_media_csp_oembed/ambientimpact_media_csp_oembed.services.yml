@@ -1,0 +1,13 @@
+parameters:
+  migrate.skip_procedural_hook_scan: true
+
+services:
+
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  ambientimpact_media_csp_oembed.media_oembed_policy_event_subscriber:
+    class: Drupal\ambientimpact_media_csp_oembed\EventSubscriber\Csp\MediaOembedPolicyEventSubscriber
+    tags:
+      - { name: 'event_subscriber' }

@@ -1,0 +1,10 @@
+name: Ambient.Impact - Media CSP oEmbed policies
+type: module
+description: Generates automatic media oEmbed policies for the <a href="https://www.drupal.org/project/csp">Content-Security-Policy module</a>.
+package: Ambient.Impact
+core_version_requirement: ^11.2
+php: 8.3
+
+dependencies:
+  - csp:csp
+  - drupal:media

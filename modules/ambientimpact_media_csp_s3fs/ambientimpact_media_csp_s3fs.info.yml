@@ -1,0 +1,11 @@
+name: Ambient.Impact - Media S3FS CSP policies
+type: module
+description: Generates automatic media policies for the <a href="https://www.drupal.org/project/csp">Content-Security-Policy module</a> when using the <a href="https://www.drupal.org/project/s3fs">S3 File System module</a>.
+package: Ambient.Impact
+core_version_requirement: ^11.2
+php: 8.3
+
+dependencies:
+  - csp:csp
+  - drupal:media
+  - s3fs:s3fs
