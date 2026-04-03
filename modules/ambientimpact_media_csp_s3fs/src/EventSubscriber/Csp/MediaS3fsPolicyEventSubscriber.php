@@ -81,8 +81,9 @@ class MediaS3fsPolicyEventSubscriber implements EventSubscriberInterface {
   /**
    * Add media CSP policy directives using the provided URL.
    *
-   * This appends the provided $url to the 'img-src' and 'media-src' directives.
-   * Note that this doesn't use Csp::fallbackAwareAppendIfEnabled() as we don't
+   * This appends the provided $url to the 'connect-src', 'img-src', and
+   * 'media-src' directives. Note that this doesn't use
+   * Csp::fallbackAwareAppendIfEnabled() as we don't
    * want these to fall back to 'default-src' if they're not enabled as that's
    * far too broad a directive in terms of security.
    *
@@ -98,6 +99,17 @@ class MediaS3fsPolicyEventSubscriber implements EventSubscriberInterface {
 
     /** @var \Drupal\csp\Csp */
     $policy = $alterEvent->getPolicy();
+
+    // This is needed if JavaScript needs to access or load a file from the
+    // bucket. A notable example of this is the Image Widget Crop module's
+    // widget which loads an image style derivative; that gets blocked by the
+    // browser if we don't allow it here.
+    //
+    // @todo Add this only on pages that have the cropping widget to minimize
+    //  security issues.
+    //
+    // @see https://www.drupal.org/project/image_widget_crop
+    $policy->appendDirective('connect-src', [$url]);
 
     $policy->appendDirective('img-src', [$url]);
 
