@@ -164,6 +164,30 @@ For Drupal core 10.4.x or 11.0.x (not 11.1.x):
   }
 ```
 
+For Drupal core 11.2.x:
+
+```json
+  "extra": {
+    "patches": {
+      "drupal/core": {
+        "Add a hook to modify oEmbed resource data (core 11.2.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/91239cd7369489e10fdae7fcd95234377860309a/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data-11.2.x.patch"
+      }
+    }
+  }
+```
+
+For Drupal core 11.3.x:
+
+```json
+  "extra": {
+    "patches": {
+      "drupal/core": {
+        "Add a hook to modify oEmbed resource data (core 11.3.x) [#3042423]: https://www.drupal.org/project/drupal/issues/3042423": "https://raw.githubusercontent.com/Ambient-Impact/drupal-ambientimpact-media/efc2f14f51e810e9dcedd1e2debe66be0ac6c1d7/patches/drupal/core/3042423-hook-to-modify-oembed-resource-data-11.3.x.patch"
+      }
+    }
+  }
+```
+
 ----
 
 # Major breaking changes
