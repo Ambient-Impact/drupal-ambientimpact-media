@@ -1,0 +1,194 @@
+diff --git a/core/misc/cspell/dictionary.txt b/core/misc/cspell/dictionary.txt
+index ff0aef453c220cb86d174d2dd614ba51108e0160..1db540b7b86f7bf949ef6e1636fc1185b7e4af3d 100644
+--- a/core/misc/cspell/dictionary.txt
++++ b/core/misc/cspell/dictionary.txt
+@@ -213,6 +213,7 @@ hhvm
+ hilited
+ hmac
+ hookname
++hqdefault
+ hrefs
+ htmlcorrector
+ htmx
+@@ -269,6 +270,7 @@ mainpage
+ maryjane
+ maximumred
+ maxlifetime
++maxresdefault
+ maynot
+ mbytes
+ mediumint
+diff --git a/core/modules/media/media.api.php b/core/modules/media/media.api.php
+index 1a17005961349e7094a480c52a031412882f7168..9306e89456fa7505fb39cc1c45fefb4997b6a05d 100644
+--- a/core/modules/media/media.api.php
++++ b/core/modules/media/media.api.php
+@@ -26,6 +26,21 @@ function hook_media_source_info_alter(array &$sources) {
+   $sources['youtube']['label'] = t('Youtube rocks!');
+ }
+ 
++/**
++ * Alters the information provided by the oEmbed resource url.
++ *
++ * @param array $data
++ *   Data provided by the oEmbed resource.
++ * @param string $url
++ *   The oEmbed resource URL.
++ */
++function hook_oembed_resource_data_alter(array &$data, string $url): void {
++  if (str_contains($url, 'youtube.com/oembed')) {
++    // Get the maximum resolution thumbnail from YouTube.
++    $data['thumbnail_url'] = str_replace('hqdefault', 'maxresdefault', $data['thumbnail_url']);
++  }
++}
++
+ /**
+  * Alters an oEmbed resource URL before it is fetched.
+  *
+diff --git a/core/modules/media/media.services.yml b/core/modules/media/media.services.yml
+index bd2aca447c232dea297f76735ab5790bfbc3cb4d..5ccdec081a547af2bd23c55ab670309ba2dd2336 100644
+--- a/core/modules/media/media.services.yml
++++ b/core/modules/media/media.services.yml
+@@ -19,7 +19,7 @@ services:
+   Drupal\media\OEmbed\ProviderRepositoryInterface: '@media.oembed.provider_repository'
+   media.oembed.resource_fetcher:
+     class: Drupal\media\OEmbed\ResourceFetcher
+-    arguments: ['@http_client', '@media.oembed.provider_repository', '@cache.default', '%media.resource_fetcher_timeout%']
++    arguments: ['@http_client', '@media.oembed.provider_repository', '@cache.default', '@module_handler', '%media.resource_fetcher_timeout%']
+   Drupal\media\OEmbed\ResourceFetcherInterface: '@media.oembed.resource_fetcher'
+   media.oembed.iframe_url_helper:
+     class: Drupal\media\IFrameUrlHelper
+diff --git a/core/modules/media/src/OEmbed/ResourceFetcher.php b/core/modules/media/src/OEmbed/ResourceFetcher.php
+index 4b482cbbc24ea3f41cf288d9af15e4d0e5d214d4..e11e6575c88ae6316f6a0b0ac0a7490a247846eb 100644
+--- a/core/modules/media/src/OEmbed/ResourceFetcher.php
++++ b/core/modules/media/src/OEmbed/ResourceFetcher.php
+@@ -4,6 +4,7 @@
+ 
+ use Drupal\Component\Serialization\Json;
+ use Drupal\Core\Cache\CacheBackendInterface;
++use Drupal\Core\Extension\ModuleHandlerInterface;
+ use GuzzleHttp\ClientInterface;
+ use GuzzleHttp\RequestOptions;
+ use Psr\Http\Client\ClientExceptionInterface;
+@@ -24,6 +25,8 @@ class ResourceFetcher implements ResourceFetcherInterface {
+    *   The oEmbed provider repository service.
+    * @param \Drupal\Core\Cache\CacheBackendInterface $cacheBackend
+    *   The cache backend.
++   * @param \Drupal\Core\Extension\ModuleHandlerInterface|null $moduleHandler
++   *   The module handler service.
+    * @param int $timeout
+    *   The length of time to wait for the request before the request
+    *   should time out.
+@@ -32,8 +35,14 @@ public function __construct(
+     protected ClientInterface $httpClient,
+     protected ProviderRepositoryInterface $providers,
+     protected CacheBackendInterface $cacheBackend,
++    protected ?ModuleHandlerInterface $moduleHandler,
+     protected int $timeout = 5,
+   ) {
++    if (empty($moduleHandler)) {
++      $moduleHandler = \Drupal::moduleHandler();
++      @trigger_error('Passing NULL as the $module_handler parameter to ' . __METHOD__ . '() is deprecated in drupal:11.4.0 and is removed from drupal:12.0.0. See https://www.drupal.org/node/3042423', E_USER_DEPRECATED);
++    }
++    $this->moduleHandler = $moduleHandler;
+   }
+ 
+   /**
+@@ -74,6 +83,8 @@ public function fetchResource($url) {
+       throw new ResourceException('The oEmbed resource could not be decoded.', $url);
+     }
+ 
++    $this->moduleHandler->alter('oembed_resource_data', $data, $url);
++
+     $this->cacheBackend->set($cache_id, $data);
+ 
+     return $this->createResource($data, $url);
+diff --git a/core/modules/media/tests/modules/media_test_oembed/src/Hook/MediaTestOembedHooks.php b/core/modules/media/tests/modules/media_test_oembed/src/Hook/MediaTestOembedHooks.php
+index 4ed572a82ae56aaf764795cffbb63661e4228b62..609e09ffa10b72d9cc69bcbbdc1f331ef03c2180 100644
+--- a/core/modules/media/tests/modules/media_test_oembed/src/Hook/MediaTestOembedHooks.php
++++ b/core/modules/media/tests/modules/media_test_oembed/src/Hook/MediaTestOembedHooks.php
+@@ -22,4 +22,15 @@ public function oembedResourceUrlAlter(array &$parsed_url, Provider $provider):
+     }
+   }
+ 
++  /**
++   * Implements hook_oembed_resource_data_alter().
++   */
++  #[Hook('oembed_resource_data_alter')]
++  public function oembedResourceDataAlter(array &$data, string $url): void {
++    if (str_contains($url, 'twitter.com/oembed')) {
++      // Change the width property.
++      $data['width'] = 600;
++    }
++  }
++
+ }
+diff --git a/core/modules/media/tests/src/Kernel/ResourceFetcherKernelTest.php b/core/modules/media/tests/src/Kernel/ResourceFetcherKernelTest.php
+new file mode 100644
+index 0000000000000000000000000000000000000000..75426798bfc79c03a335fe74f825a3c4edd3d494
+--- /dev/null
++++ b/core/modules/media/tests/src/Kernel/ResourceFetcherKernelTest.php
+@@ -0,0 +1,38 @@
++<?php
++
++declare(strict_types=1);
++
++namespace Drupal\Tests\media\Kernel;
++
++use Drupal\media\OEmbed\ResourceFetcher;
++use PHPUnit\Framework\Attributes\CoversClass;
++use PHPUnit\Framework\Attributes\Group;
++use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
++
++/**
++ * Tests the oEmbed resource fetcher service.
++ */
++#[CoversClass(ResourceFetcher::class)]
++#[Group('media')]
++#[RunTestsInSeparateProcesses]
++class ResourceFetcherKernelTest extends MediaKernelTestBase {
++
++  /**
++   * {@inheritdoc}
++   */
++  protected static $modules = ['media_test_oembed'];
++
++  /**
++   * Tests that hook_oembed_resource_data_alter() is invoked.
++   */
++  public function testResourceDataAlter(): void {
++    // Get the resource.
++    $resource_url = $this->container->get('media.oembed.resource_fetcher')
++      ->fetchResource('https://publish.twitter.com/oembed?url=https://twitter.com/Dries/status/999985431595880448');
++
++    // Check media_test_oembed_oembed_resource_data_alter
++    // to see the hook implementation.
++    $this->assertEquals(600, $resource_url->getWidth());
++  }
++
++}
+diff --git a/core/modules/media/tests/src/Unit/ResourceFetcherTest.php b/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
+index 9e6b8a3d59220067f41b8b5030992106892f0c91..ba7fc2275c2f2c4910607daf2fa4bdd14feb5ef4 100644
+--- a/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
++++ b/core/modules/media/tests/src/Unit/ResourceFetcherTest.php
+@@ -49,6 +49,7 @@ public function testFetchTimeout(): void {
+       $client->reveal(),
+       $this->createMock('\Drupal\media\OEmbed\ProviderRepositoryInterface'),
+       new NullBackend('default'),
++      $this->createMock('\Drupal\Core\Extension\ModuleHandlerInterface'),
+       $non_default_timeout
+     );
+     $fetcher->fetchResource($url);
+@@ -86,7 +87,12 @@ public function testUnknownContentTypeHeader(): void {
+     ]);
+     $providers = $this->createMock('\Drupal\media\OEmbed\ProviderRepositoryInterface');
+ 
+-    $fetcher = new ResourceFetcher($client, $providers, new NullBackend('default'));
++    $fetcher = new ResourceFetcher(
++      $client,
++      $providers,
++      new NullBackend('default'),
++      $this->createMock('\Drupal\Core\Extension\ModuleHandlerInterface')
++    );
+     /** @var \Drupal\media\OEmbed\Resource $resource */
+     $resource = $fetcher->fetchResource('valid');
+     // The resource should have been successfully decoded as JSON.
