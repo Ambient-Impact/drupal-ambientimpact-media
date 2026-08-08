@@ -97,11 +97,27 @@ class ImageFormatter extends CoreImageFormatter {
     UrlResolverInterface $mediaoEmbedURLResolver,
     protected readonly LoggerInterface $loggerChannel,
   ) {
-    parent::__construct(
-      $pluginID, $pluginDefinition, $fieldDefinition, $settings, $label,
-      $viewMode, $thirdPartySettings, $currentUser, $imageStyleStorage,
-      $fileUrlGenerator
-    );
+
+    // Drupal >= 11.4.
+    if (class_exists('\Drupal\image\ImageDerivativeUtilities')) {
+
+      parent::__construct(
+        $pluginID, $pluginDefinition, $fieldDefinition, $settings, $label,
+        $viewMode, $thirdPartySettings, $currentUser, $imageStyleStorage,
+        $fileUrlGenerator,
+        \Drupal::service(\Drupal\image\ImageDerivativeUtilities::class),
+      );
+
+    // Drupal < 11.4.
+    } else {
+
+      parent::__construct(
+        $pluginID, $pluginDefinition, $fieldDefinition, $settings, $label,
+        $viewMode, $thirdPartySettings, $currentUser, $imageStyleStorage,
+        $fileUrlGenerator,
+      );
+
+    }
 
     $this->componentManager       = $componentManager;
     $this->mediaoEmbedURLResolver = $mediaoEmbedURLResolver;
